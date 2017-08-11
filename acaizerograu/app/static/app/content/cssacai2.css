@@ -1,18 +1,18 @@
 .mynavbar {
     background: #639636;
     /* IE10+ */
-    background-image: -ms-linear-gradient(top, #9AFF9A 10%, #7CCD7C 90%);
+    background-image: -ms-linear-gradient(top, #8EFAA4 10%, #00C277 90%);
     /* Mozilla Firefox */
-    background-image: -moz-linear-gradient(top, #9AFF9A 10%, #7CCD7C 90%);
+    background-image: -moz-linear-gradient(top, #8EFAA4 10%, #00C277 90%);
     /* Opera */
-    background-image: -o-linear-gradient(top, #9AFF9A 10%, #7CCD7C 90%);
+    background-image: -o-linear-gradient(top, #8EFAA4 10%, #00C277 90%);
     /* Webkit (Safari/Chrome 10) */
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10, #9AFF9A), color-stop(90, #7CCD7C));
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10, #8EFAA4), color-stop(90, #00C277));
     /* Webkit (Chrome 11+) */
-    background-image: -webkit-linear-gradient(top, #9AFF9A 10%, #7CCD7C 90%);
+    background-image: -webkit-linear-gradient(top, #8EFAA4 10%, #00C277 90%);
     /* W3C Markup */
-    background-image: linear-gradient(to bottom, #9AFF9A 10%, #7CCD7C 90%);
-    min-height: 180px;
+    background-image: linear-gradient(to bottom, #8EFAA4 10%, #00C277 90%);
+    min-height: 160px;
     border-bottom-style: solid;
     border-bottom-width: 3px;
     border-color: #8e398e;
@@ -23,17 +23,17 @@
 .myjumbotron {
     background-color: #000000;
     /* IE10+ */
-    background-image: -ms-linear-gradient(top, #9AFF9A 10%, #7CCD7C 90%);
+    background-image: -ms-linear-gradient(top, #8EFAA4 10%, #00C277 90%);
     /* Mozilla Firefox */
-    background-image: -moz-linear-gradient(top, #9AFF9A 10%, #7CCD7C 90%);
+    background-image: -moz-linear-gradient(top, #8EFAA4 10%, #00C277 90%);
     /* Opera */
-    background-image: -o-linear-gradient(top, #9AFF9A 10%, #7CCD7C 90%);
+    background-image: -o-linear-gradient(top, #8EFAA4 10%, #00C277 90%);
     /* Webkit (Safari/Chrome 10) */
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10, #9AFF9A), color-stop(90, #7CCD7C));
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10, #8EFAA4), color-stop(90, #00C277));
     /* Webkit (Chrome 11+) */
-    background-image: -webkit-linear-gradient(top, #9AFF9A 10%, #7CCD7C 90%);
+    background-image: -webkit-linear-gradient(top, #8EFAA4 10%, #00C277 90%);
     /* W3C Markup */
-    background-image: linear-gradient(to bottom, #9AFF9A 10%, #7CCD7C 90%);
+    background-image: linear-gradient(to bottom, #8EFAA4 10%, #00C277 90%);
     min-height: 350px;
     border-bottom-style: solid;
     border-bottom-width: 3px;
