@@ -1,1 +1,12 @@
-django >=1.9, <2
+django  
+pip
+python-escpos
+setuptools
+six
+wheel
+dj-database-url
+gunicorn
+psycopg2
+whitenoise
+requests
+pylint
