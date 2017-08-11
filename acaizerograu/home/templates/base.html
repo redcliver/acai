@@ -12,7 +12,7 @@
 {% load staticfiles %}
     <!-- Bootstrap core CSS -->
     <link rel="icon" href="{% static '/app/img/bigode.ico' %}"/>
-    <link rel="stylesheet" href="{% static '/app/content/cssacai2.css' %}" />
+    <link rel="stylesheet" href="{% static '/app/content/cssacai3.css' %}" />
     <link rel="stylesheet" href="{% static '/app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'app/content/ie10-viewport-bug-workaround.css' %}" />
     <link rel="stylesheet" href="{% static '/app/content/navbar.css' %}" />
@@ -28,15 +28,25 @@
             background-size:cover;
             background-position:center;
             background-color: #ffffff;
-            color: #eaeaea;
+            color: #ffffff;
             
         }
 
         footer {
             color:#ffffff;
         }
+        .navbar-default {
+            border-color: #885ead;
+            border-bottom-style: solid;
+            border-bottom-width: 3px;
+            border-radius: 20px;
+
+        }
+        .navbar-default .navbar-nav > li > a {
+            color: #885ead;
+        }
         a {
-            color:#f776db;
+            color:#885ead;
         }
         a:hover{
             color: #5c0649;
@@ -57,10 +67,10 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse ">
                     <ul class="nav navbar-nav">
-                        <li><a href="/pedidos"><img src="../../static/app/img/acaipedidos.png" /><center>Pedidos</center></a></li>
-                        <li><a href="/entregas"><img src="../../static/app/img/acaientregas.png" /><center>Estregas</center></a></li>
-                        <li><a href="/caixa"><img src="../../static/app/img/acaicaixa.png" /><center>Caixa</center></a></li>
-                        <li><a href="/outros"><img src="../../static/app/img/acaioutros.png" /><center>Outros</center></a></li>
+                        <li><a href="/pedidos"><img src="../../static/app/img/pedidosacai.png" /><center>Pedidos</center></a></li>
+                        <li><a href="/entregas"><img src="../../static/app/img/entregasacai.png" /><center>Estregas</center></a></li>
+                        <li><a href="/caixa"><img src="../../static/app/img/caixaacai.png" /><center>Caixa</center></a></li>
+                        <li><a href="/outros"><img src="../../static/app/img/outrosacai.png" /><center>Outros</center></a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div><!--/.container-fluid -->

@@ -17,6 +17,9 @@ from django.conf.urls import include
 urlpatterns = [
     # Examples:
     url(r'', include('home.urls')),
+    url(r'^caixa/', include('caixa.urls')),
+    url(r'^outros/', include('outros.urls')),
+    url(r'^pedidos/', include('pedidos.urls')),
     url(r'^contact$', app.views.contact, name='contact'),
     url(r'^about', app.views.about, name='about'),
     url(r'^login/$',
