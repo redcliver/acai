@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sistema de controle">
+    <meta name="author" content="Igor Peres">
+{%block head %}
+    <title>{{ title }} - Açaí Zero Grau Sorveteria</title>
+    
+{% load staticfiles %}
+    <!-- Bootstrap core CSS -->
+    <link rel="icon" href="{% static '/app/img/bigode.ico' %}"/>
+    <link rel="stylesheet" href="{% static '/app/content/cssacai2.css' %}" />
+    <link rel="stylesheet" href="{% static '/app/content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'app/content/ie10-viewport-bug-workaround.css' %}" />
+    <link rel="stylesheet" href="{% static '/app/content/navbar.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script href="{% static '/app/scripts/bootstrap.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script href="{% static '/app/scripts/ie10-viewport-bug-workaround.js' %}"></script>
+    <style type="text/css">
+        body {
+            background-image: url('../../static/app/img/fundoacai.jpg');
+            background-repeat: no-repeat;
+            background-size:cover;
+            background-position:center;
+            background-color: #ffffff;
+            color: #eaeaea;
+            
+        }
+
+        footer {
+            color:#ffffff;
+        }
+        a {
+            color:#f776db;
+        }
+        a:hover{
+            color: #5c0649;
+        }
+        button {
+            color:#913d8b;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+    <!-- Static navbar -->
+        <nav class="mynavbar navbar-default navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/"><img src="../../static/app/img/logoacai2.png"/></a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse ">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/pedidos"><img src="../../static/app/img/pedidosacai.png" /><center>Pedidos</center></a></li>
+                        <li><a href="/entregas"><img src="../../static/app/img/entregasacai.png" /><center>Estregas</center></a></li>
+                        <li><a href="/outros"><img src="../../static/app/img/outrosacai.png" /><center>Outros</center></a></li>
+                        <li><a href="/caixa"><img src="../../static/app/img/caixaacai.png" /><center>Caixa</center></a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!--/.container-fluid -->
+        </nav>
+        <h2>{{title}}</h2>
+        {% endblock %}
+
+        <div class="myjumbotron jumbotron">
+            {% block body %}
+        
+
+            {% endblock %}
+        </div>
+   
+   </div>
+        <footer>
+            <center>Açaí Zero Grau Application &copy; 2017</center>
+        </footer>
+    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'app/scripts/respond.js' %}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
