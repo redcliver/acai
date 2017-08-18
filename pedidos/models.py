@@ -242,6 +242,6 @@ class comanda(models.Model):
     fondues = models.ManyToManyField(itemfondue)
     produtos = models.ManyToManyField(itemproduto)
     sucos = models.ManyToManyField(itemsuco)
-    total = models.DecimalField(max_digits=5, decimal_places=2, defaul='0')
+    total = models.DecimalField(max_digits=5, decimal_places=2, default='0')
     def __str__(self):
         return str(self.id)
