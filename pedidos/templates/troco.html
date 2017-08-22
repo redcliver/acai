@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="GET" action="/">
+<h3> Total: {{comanda_atual.total}}<h3>
+    
+    Recebido:
+    <input type="number" step="0.01" value={{recebido}} readonly/>
+    <br>
+    Troco:
+    <input value={{troco}} readonly>
+
+    <button type="submit">Finalizar</button>
+</form>
+{% endblock %}

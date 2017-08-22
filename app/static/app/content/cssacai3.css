@@ -67,5 +67,7 @@ label > input { /* HIDE RADIO */
         border: 2px solid #ed7357;
     }
 
-
+.no-click {
+    pointer-events: none;
+}
 

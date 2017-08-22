@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% block body %}
+<h2>Valor em caixa: R${{caixa_atual.total}}</h2><br />
+<div id="navbar" class="collapse navbar-collapse ">
+    <ul class="nav navbar-nav">
+        <li><a href="retirada"><img src="../../static/app/img/retirada.png" /><center>Retirada</center></a></li>
+        <li><a href="extrato"><img src="../../static/app/img/extrato.png" /><center>Extrato</center></a></li>
+        <li><a href="fechar"><img src="../../static/app/img/fechar.png" /><center>Fechar</center></a></li>
+    </ul>
+</div>
+{% endblock %}

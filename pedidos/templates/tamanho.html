@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+<h3>Pedido:</h3>
+<button class="no-click"><img src="../../static/app/img/{{pedido1}}.png" /></button>
+<form method="POST" action="/pedidos/finalizar/">
+    {% csrf_token %}
+    <input type="hidden" name="comanda_id" value={{comanda_id}} />
+    <input type="hidden" name="pedido" value="{{pedido1}}" />
+    <h3>Tamanho:</h3>
+    <button type="submit" name="tamanho" value="P"><img src="../../static/app/img/P.png" /></button>
+    <button type="submit" name="tamanho" value="G"><img src="../../static/app/img/G.png" /></button>
+</form>
+{% endblock %}

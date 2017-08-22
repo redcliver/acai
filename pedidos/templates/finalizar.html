@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block body %}
+<form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Pedido</th>
+                <th>Tamanho</th>
+                <th>Adicionais</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for acais in acais1 %}
+            <form method="GET">
+                    <input type="hidden" name="comanda_id" value="{{comanda_id}}" />
+            <tr>
+                
+                <input type="hidden" name="item_id" value="{{acais}}" />
+                <td><button class="no-click"><img src="../../static/app/img/{{acais.acai_item.img}}.png" /></button></td>
+                <td><button class="no-click"><img src="../../static/app/img/{{acais.acai_item.tamanho}}.png" /></button></td>
+                <td>{{acais.acai_item.adicionais.nome}}<button type="submit" formaction="/pedidos/adicionais">Adicionar</button></td>
+                <td><h2>R$ {{acais.total}}</h3></td>
+                
+            </tr>
+            {% endfor %}
+        </form>
+        </tbody>
+    </table>
+    <br/>
+    <button formaction="/pedidos/" >Adicionar outro item</button>
+    
+    <button formaction="/pedidos/metodo/">Finalizar</button>
+</form>
+{% endblock %}

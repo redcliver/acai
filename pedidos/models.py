@@ -5,6 +5,7 @@ class adicional(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
+    img = models.CharField(max_length=200, null=True, blank=True)
     def __str__(self):
         return self.nome
 
@@ -16,7 +17,7 @@ class acai(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
-    obs = models.CharField(max_length=200, null=True, blank=True)
+    img = models.CharField(max_length=200, null=True, blank=True)
     tamanho = models.CharField(max_length=1, choices=SIZES)
     adicionais = models.ManyToManyField(adicional)
     def __str__(self):
@@ -40,7 +41,7 @@ class mix(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
-    obs = models.CharField(max_length=200, null=True, blank=True)
+    img = models.CharField(max_length=200, null=True, blank=True)
     tamanho = models.CharField(max_length=1, choices=SIZES)
     adicionais = models.ManyToManyField(adicional)
     def __str__(self):
@@ -64,7 +65,7 @@ class casadinho(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
-    obs = models.CharField(max_length=200, null=True, blank=True)
+    img = models.CharField(max_length=200, null=True, blank=True)
     tamanho = models.CharField(max_length=1, choices=SIZES)
     adicionais = models.ManyToManyField(adicional)
     def __str__(self):
@@ -93,7 +94,7 @@ class creme(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
-    obs = models.CharField(max_length=200, null=True, blank=True)
+    img = models.CharField(max_length=200, null=True, blank=True)
     tamanho = models.CharField(max_length=1, choices=SIZES)
     adicionais = models.ManyToManyField(adicional)
     def __str__(self):
@@ -118,7 +119,7 @@ class sorvete(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
-    obs = models.CharField(max_length=200, null=True, blank=True)
+    img = models.CharField(max_length=200, null=True, blank=True)
     def __str__(self):
         return self.nome
 
@@ -140,7 +141,7 @@ class mshake(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
-    obs = models.CharField(max_length=200, null=True, blank=True)
+    img = models.CharField(max_length=200, null=True, blank=True)
     tamanho = models.CharField(max_length=1, choices=SIZES)
     def __str__(self):
         return self.nome
@@ -158,7 +159,7 @@ class petit(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
-    obs = models.CharField(max_length=200, null=True, blank=True)
+    img = models.CharField(max_length=200, null=True, blank=True)
     adicionais = models.ManyToManyField(adicional)
     def __str__(self):
         return self.nome
@@ -177,7 +178,7 @@ class fondue(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
-    obs = models.CharField(max_length=200, null=True, blank=True)
+    img = models.CharField(max_length=200, null=True, blank=True)
     adicionais = models.ManyToManyField(adicional)
     def __str__(self):
         return self.nome
@@ -196,7 +197,7 @@ class produto(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
-    obs = models.CharField(max_length=200, null=True, blank=True)
+    img = models.CharField(max_length=200, null=True, blank=True)
     def __str__(self):
         return self.nome
 
@@ -212,7 +213,7 @@ class suco(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
-    obs = models.CharField(max_length=200, null=True, blank=True)
+    img = models.CharField(max_length=200, null=True, blank=True)
     def __str__(self):
         return self.nome
 
@@ -243,5 +244,6 @@ class comanda(models.Model):
     produtos = models.ManyToManyField(itemproduto)
     sucos = models.ManyToManyField(itemsuco)
     total = models.DecimalField(max_digits=5, decimal_places=2, default='0')
+    
     def __str__(self):
         return str(self.id)

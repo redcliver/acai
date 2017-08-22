@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block body %}
+<form>
+<h3> Total: {{comanda_atual.total}}<h3>
+        <input type="hidden" name="comanda_id" value="{{comanda_atual.id}}" />
+    Metodo de pagamento:
+    <button type="submit" name="metodo" value="cartao" formaction="/pedidos/cartao/">Cartao</button>
+    <button type="submit" name="metodo" value="dinheiro" formaction="/pedidos/dinheiro/">Dinheiro</button>
+</form>
+
+{% endblock %}

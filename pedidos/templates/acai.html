@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
-<form method="GET">
+<form method="GET" action="/pedidos/tamanho/">
+    <input type="hidden" name="comanda_id" value={{comanda_id}} />
     <button type="submit" name="pedido" value="acaipuro"><img src="../../static/app/img/acaipuro.png" /></button>
     <button type="submit" name="pedido" value="acaibanana"><img src="../../static/app/img/acaibanana.png" /></button>
     <button type="submit" name="pedido" value="acaimorango"><img src="../../static/app/img/acaimorango.png" /></button>
