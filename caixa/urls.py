@@ -5,5 +5,7 @@ from django.contrib.auth.views import login
 
 
 urlpatterns = [
-    url(r'^$', views.caixa),
+    url(r'^$', views.caixa1),
+    url(r'^extrato/$', views.extrato),
+    url(r'^retirada/$', views.retirada),
     ]

@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+{% block body %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <table>
+            <tr>
+                <th>Tipo</th>
+                <th>Item</th>
+                <th>Obs</th>
+                <th>Total</th>
+            </tr>
+            {% for caixa in caixas %}
+            <tr>
+                <td>{{caixa.tipo}}</td>
+                <td>{{caixa.item}}</td>
+                <td>{{caixa.obs}}</td>
+                <td>{{caixa.total}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
