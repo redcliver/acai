@@ -1,12 +1,30 @@
 {% extends 'base.html' %}
 {% block body %}
-<button class="no-click"><img src="../../static/app/img/{{item_atual.acai_item.img}}.png" /></button>
-<button class="no-click"><img src="../../static/app/img/{{item_atual.acai_item.tamanho}}.png" /></button>
+{% if item_acai_id %}
+<button class="no-click"><img src="../../static/app/img/{{item_acai_id.acai_item.img}}.png" /></button>
+<button class="no-click"><img src="../../static/app/img/{{item_acai_id.acai_item.tamanho}}.png" /></button>
+{% endif %}
+{% if item_casadinho_id %}
+<button class="no-click"><img src="../../static/app/img/{{item_casadinho_id.casadinho_item.img}}.png" /></button>
+<button class="no-click"><img src="../../static/app/img/{{item_casadinho_id.casadinho_item.tamanho}}.png" /></button>
+{% endif %}
+{% if item_mix_id %}
+<button class="no-click"><img src="../../static/app/img/{{item_mix_id.mix_item.img}}.png" /></button>
+<button class="no-click"><img src="../../static/app/img/{{item_mix_id.mix_item.tamanho}}.png" /></button>
+{% endif %}
 <form method="POST" action="/pedidos/finalizar/">
     {% csrf_token %}
-    <input type="hidden" name="item_id" value="{{item_atual.id}}" />
+    {% if item_acai_id %}
+        <input type="hidden" name="item_acai_id" value="{{item_acai_id}}" />
+    {% endif %}
+    {% if item_casadinho_id %}
+    <input type="hidden" name="item_casadinho_id" value="{{item_casadinho_id}}" />
+    {% endif %}
+    {% if item_mix_id %}
+        <input type="hidden" name="item_mix_id" value="{{item_mix_id}}" />
+    {% endif %}
     <input type="hidden" name="comanda_id" value="{{comanda_id}}" />
-    <h3>Adicionais:</h3>
+    <h3>Adicionais: </h3>
     <div class="col-md-10">
             {% for adicional in adicionais %}
             <label>

@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^$', views.outros),
     url(r'^addadicional/$', views.addadicional),
     url(r'^addacai/$', views.addacai),
+    url(r'^addcasadinho/$', views.addcasadinho),
     url(r'^addmix/$', views.addmix),
     ]
