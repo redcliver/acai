@@ -6,6 +6,7 @@ from django.contrib.auth.views import login
 
 urlpatterns = [
     url(r'^$', views.pedidos),
+    url(r'^confirmacao/$', views.confirmacao),
     url(r'^tamanho/$', views.tamanho),
     url(r'^adicionais/$', views.adicionais),
     url(r'^finalizar/$', views.finalizar),

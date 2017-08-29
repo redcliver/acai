@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from pedidos.models import adicional, acai, mix, casadinho
+from pedidos.models import produto , sorvete, adicional, acai, mix, casadinho, creme
 
 # Create your views here.
 def outros(request):
@@ -44,6 +44,40 @@ def addmix(request):
         msg = "Mix salvo com sucesso!"
         return render(request, 'home/home.html',{'title':'Home', 'msg':msg})
     return render(request, 'addmix.html', {'title':'Add Mix'})
+def addcreme(request):
+    adicionais = adicional.objects.all()
+    if request.method == 'POST':
+        creme_nome = request.POST.get('nome')
+        creme_tamanho = request.POST.get('tamanho')
+        creme_img = request.POST.get('img')
+        creme_preco = request.POST.get('preco')
+        creme_add = request.POST.getlist('adicional')
+        novo_creme = creme(nome=creme_nome, tamanho=creme_tamanho, img=creme_img, preco=creme_preco)
+        novo_creme.save()
+        msg = "Creme salvo com sucesso!"
+        return render(request, 'home/home.html',{'title':'Home', 'msg':msg})
+    return render(request, 'addcreme.html', {'title':'Add Creme', 'adicionais':adicionais})
+def addproduto(request):
+    if request.method == 'POST':
+        prod_nome = request.POST.get('nome')
+        prod_img = request.POST.get('img')
+        prod_preco = request.POST.get('preco')
+        novo_prod = produto(nome=prod_nome, img=prod_img, preco=prod_preco)
+        novo_prod.save()
+        msg = "Produto salvo com sucesso!"
+        return render(request, 'home/home.html',{'title':'Home', 'msg':msg})
+    return render(request, 'addproduto.html', {'title':'Add Produto'})
+def addsorvete(request):
+    if request.method == 'POST':
+        sorv_nome = request.POST.get('nome')
+        sorv_img = request.POST.get('img')
+        sorv_preco = request.POST.get('preco')
+        novo_sorv = sorvete(nome=sorv_nome, img=sorv_nome, preco=sorv_preco)
+        novo_sorv.save()
+        msg = "Sorvete salvo com sucesso!"
+        return render(request, 'home/home.html',{'title':'Home', 'msg':msg})
+    return render(request, 'addsorvete.html', {'title':'Add Sorvete'})
+
 
 def addadicional(request):
     return render(request, 'addadicional.html', {'title':'Add Adicional'})

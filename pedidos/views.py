@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from pedidos.models import comanda, adicional, acai, itemacai, mix, itemmix, casadinho, itemcasadinho
+from pedidos.models import comanda, produto, sorvete ,itemsorvete , itemproduto, adicional, acai, itemacai, mix, itemmix, casadinho, itemcasadinho, creme, itemcreme
 from caixa.models import caixa
 from decimal import *
 
@@ -37,10 +37,17 @@ def tamanho(request):
     comanda_id = request.GET.get('comanda_id')
     return render(request, 'tamanho.html', {'title':'Tamanho', 'pedido1':pedido1, 'comanda_id':comanda_id})
 
+def confirmacao(request):
+    pedido1 = request.GET.get('pedido')
+    comanda_id = request.GET.get('comanda_id')
+    return render(request, 'confirmacao.html', {'title':'Confirmação', 'pedido1':pedido1, 'comanda_id':comanda_id})
+
 def adicionais(request):
     item_acai_id = request.GET.get('item_acai_id')
     item_casadinho_id = request.GET.get('item_casadinho_id')
     item_mix_id = request.GET.get('item_mix_id')
+    item_creme_id = request.GET.get('item_creme_id')
+    item_sorvete_id = request.GET.get('item_sorvete_id')
     adicionais = adicional.objects.all()
     comanda_id = request.GET.get('comanda_id')
     try:
@@ -55,6 +62,14 @@ def adicionais(request):
         item_mix_id = itemmix.objects.filter(id=item_mix_id).get()
     except:
         item_mix_id = None
+    try:
+        item_creme_id = itemcreme.objects.filter(id=item_creme_id).get()
+    except:
+        item_creme_id = None
+    try:
+        item_sorvete_id = itemsorvete.objects.filter(id=item_sorvete_id).get()
+    except:
+        item_sorvete_id = None
 
     if item_acai_id != None :
         adicionais = adicional.objects.all()
@@ -68,6 +83,14 @@ def adicionais(request):
         adicionais = adicional.objects.all()
         comanda_id = request.GET.get('comanda_id')
         return render(request, 'adicionais.html', {'title':'Adicionais', 'adicionais':adicionais, 'item_mix_id':item_mix_id, 'comanda_id':comanda_id})
+    if item_creme_id != None :
+        adicionais = adicional.objects.all()
+        comanda_id = request.GET.get('comanda_id')
+        return render(request, 'adicionais.html', {'title':'Adicionais', 'adicionais':adicionais, 'item_creme_id':item_creme_id, 'comanda_id':comanda_id})
+    if item_sorvete_id != None :
+        adicionais = adicional.objects.all()
+        comanda_id = request.GET.get('comanda_id')
+        return render(request, 'adicionais.html', {'title':'Adicionais', 'adicionais':adicionais, 'item_sorvete_id':item_sorvete_id, 'comanda_id':comanda_id})
 
     return render(request, 'adicionais.html', {'title':'Adicionais', 'adicionais':adicionais, 'comanda_id':comanda_id})
 
@@ -77,6 +100,10 @@ def finalizar(request):
     acai1 = request.POST.get('item_acai_id')
     casadinho1 = request.POST.get('item_casadinho_id')
     mix1 = request.POST.get('item_mix_id')
+    creme1 = request.POST.get('item_creme_id')
+    sorvete1 = request.POST.get('item_sorvete_id')
+    pedido_produto = request.POST.get('pedido_produto')
+    pedido_sorvete = request.POST.get('pedido_produto')
     adicionais1 = request.POST.getlist('adicional2')
     comanda_id = request.POST.get('comanda_id')
     if adicionais1 == []:
@@ -94,12 +121,32 @@ def finalizar(request):
         mix1 = itemmix.objects.filter(id=mix1).get()
     except:
         mix1 = None
+    try: ##Item Creme
+        creme1 = itemcreme.objects.filter(id=creme1).get()
+    except:
+        creme1 = None
+    try: ##Item Produto
+        produto1 = itemproduto.objects.filter(id=produto1).get()
+    except:
+        produto1 = None
+    try: ##Item Sorvete
+        sorvete1 = itemsorvete.objects.filter(id=sorvete1).get()
+    except:
+        sorvete1 = None
     
     
     try: ## Comanda_id
-        comanda_id =comanda.objects.filter(id=comanda_id).get()
+        comanda_id = comanda.objects.filter(id=comanda_id).get()
     except:
         comanda_id = None
+    try: ## pedido produto
+        pedido_produto = produto.objects.filter(img=pedido_produto).get()
+    except:
+        pedido_produto = None
+    try: ## pedido sorvete
+        pedido_sorvete = sorvete.objects.filter(img=pedido_sorvete).get()
+    except:
+        pedido_sorvete = None
     try: ## pedido acai
         pedido_acai = acai.objects.filter(img=pedido2, tamanho=tamanho1).get()
     except:
@@ -112,6 +159,11 @@ def finalizar(request):
         pedido_mix = mix.objects.filter(img=pedido2, tamanho=tamanho1).get()
     except:
         pedido_mix = None
+    try: ##pedido creme
+        pedido_creme = creme.objects.filter(img=pedido2, tamanho=tamanho1).get()
+    except:
+        pedido_creme = None
+
     if pedido_acai != None and tamanho1 != None and comanda_id == None and adicionais1 == None: ##add novo acai em nova comanda
         total_pedido = pedido_acai.preco
         novo_item_acai = itemacai(acai_item=pedido_acai, total=total_pedido)
@@ -145,6 +197,39 @@ def finalizar(request):
         mixs1 = nova_comanda.mixs.all()
         comanda_id = nova_comanda.id
         return render(request, 'finalizar.html',{'title':'Fechamento', 'mixs1':mixs1, 'comanda_id':comanda_id})
+    if pedido_creme != None and tamanho1 != None and comanda_id == None and adicionais1 == None: ##add novo creme em nova comanda
+        total_pedido = pedido_creme.preco
+        novo_item_creme = itemcreme(creme_item=pedido_creme, total=total_pedido)
+        novo_item_creme.save()
+        nova_comanda = comanda(total=total_pedido)
+        nova_comanda.save()
+        nova_comanda.cremes.add(novo_item_creme)
+        nova_comanda.save()
+        cremes1 = nova_comanda.cremes.all()
+        comanda_id = nova_comanda.id
+        return render(request, 'finalizar.html',{'title':'Fechamento', 'cremes1':cremes1, 'comanda_id':comanda_id})
+    if pedido_produto != None and comanda_id == None and adicionais1 == None: ##add novo produto em nova comanda
+        total_pedido = pedido_produto.preco
+        novo_item_produto = itemproduto(produto_item=pedido_produto, total=total_pedido)
+        novo_item_produto.save()
+        nova_comanda = comanda(total=total_pedido)
+        nova_comanda.save()
+        nova_comanda.produtos.add(novo_item_produto)
+        nova_comanda.save()
+        produtos1 = nova_comanda.produtos.all()
+        comanda_id = nova_comanda.id
+        return render(request, 'finalizar.html',{'title':'Fechamento', 'produtos1':produtos1, 'comanda_id':comanda_id})
+    if pedido_sorvete != None and comanda_id == None and adicionais1 == None: ##add novo sorvete em nova comanda
+        total_pedido = pedido_sorvete.preco
+        novo_item_sorvete = itemsorvete(sorvete_item=pedido_sorvete, total=total_pedido)
+        novo_item_sorvete.save()
+        nova_comanda = comanda(total=total_pedido)
+        nova_comanda.save()
+        nova_comanda.sorvetes.add(novo_item_sorvete)
+        nova_comanda.save()
+        sorvetes1 = nova_comanda.sorvetes.all()
+        comanda_id = nova_comanda.id
+        return render(request, 'finalizar.html',{'title':'Fechamento', 'sorvetes1':sorvetes1, 'comanda_id':comanda_id})
     if acai1 != None and adicionais1 != None and comanda_id != None and pedido2 == None: ## add adicional em acai
         acai1 = acai1.id
         comanda_atual = comanda_id
@@ -160,7 +245,10 @@ def finalizar(request):
         acais1 = comanda_atual.acais.all()
         mixs1 = comanda_atual.mixs.all()
         casadinhos1 = comanda_atual.casadinhos.all()
-        return render(request, 'finalizar.html',{'title':'Fechamento', 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'comanda_id':comanda_atual})
+        produtos1 = comanda_atual.produtos.all()
+        cremes1 = comanda_atual.cremes.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
+        return render(request, 'finalizar.html',{'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_atual})
     if mix1 != None and adicionais1 != None and comanda_id != None and pedido2 == None: ## add adicional em mix
         mix1 = mix1.id
         comanda_atual = comanda_id
@@ -176,7 +264,10 @@ def finalizar(request):
         acais1 = comanda_atual.acais.all()
         mixs1 = comanda_atual.mixs.all()
         casadinhos1 = comanda_atual.casadinhos.all()
-        return render(request, 'finalizar.html',{'title':'Fechamento', 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'comanda_id':comanda_atual})
+        cremes1 = comanda_atual.cremes.all()
+        produtos1 = comanda_atual.produtos.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
+        return render(request, 'finalizar.html',{'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_atual})
     if casadinho1 != None and adicionais1 != None and comanda_id != None and pedido2 == None: ## add adicional em casadinho
         casadinho1 = casadinho1.id
         comanda_atual = comanda_id
@@ -192,7 +283,48 @@ def finalizar(request):
         acais1 = comanda_atual.acais.all()
         mixs1 = comanda_atual.mixs.all()
         casadinhos1 = comanda_atual.casadinhos.all()
-        return render(request, 'finalizar.html',{'title':'Fechamento', 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'comanda_id':comanda_atual})
+        cremes1 = comanda_atual.cremes.all()
+        produtos1 = comanda_atual.produtos.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
+        return render(request, 'finalizar.html',{'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_atual})
+    if creme1 != None and adicionais1 != None and comanda_id != None and pedido2 == None: ## add adicional em creme
+        creme1 = creme1.id
+        comanda_atual = comanda_id
+        item_adicional = itemcreme.objects.filter(id=creme1).get()
+        for adicional2 in adicionais1 :
+            add_id = int(adicional2)
+            addicional = adicional.objects.filter(id=add_id).get()
+            item_adicional.adicionais.add(addicional)
+            item_adicional.total = item_adicional.total + addicional.preco
+            item_adicional.save()
+            comanda_atual.total = comanda_atual.total +addicional.preco
+            comanda_atual.save()
+        acais1 = comanda_atual.acais.all()
+        mixs1 = comanda_atual.mixs.all()
+        casadinhos1 = comanda_atual.casadinhos.all()
+        cremes1 = comanda_atual.cremes.all()
+        produtos1 = comanda_atual.produtos.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
+        return render(request, 'finalizar.html',{'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_atual})
+    if sorvete1 != None and adicionais1 != None and comanda_id != None and pedido2 == None: ## add adicional em sorvete
+        sorvete1 = sorvete1.id
+        comanda_atual = comanda_id
+        item_adicional = itemsorvete.objects.filter(id=sorvete1).get()
+        for adicional2 in adicionais1 :
+            add_id = int(adicional2)
+            addicional = adicional.objects.filter(id=add_id).get()
+            item_adicional.adicionais.add(addicional)
+            item_adicional.total = item_adicional.total + addicional.preco
+            item_adicional.save()
+            comanda_atual.total = comanda_atual.total +addicional.preco
+            comanda_atual.save()
+        acais1 = comanda_atual.acais.all()
+        mixs1 = comanda_atual.mixs.all()
+        casadinhos1 = comanda_atual.casadinhos.all()
+        cremes1 = comanda_atual.cremes.all()
+        produtos1 = comanda_atual.produtos.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
+        return render(request, 'finalizar.html',{'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_atual})
     if pedido_acai != None and tamanho1 != None and comanda_id != None and adicionais1 == None: ##add novo acai em comanda existente
         comanda_atual = comanda_id
         pedido_acai = acai.objects.filter(img=pedido2, tamanho=tamanho1).get()
@@ -206,8 +338,11 @@ def finalizar(request):
         acais1 = comanda_atual.acais.all()
         mixs1 = comanda_atual.mixs.all()
         casadinhos1 = comanda_atual.casadinhos.all()
+        cremes1 = comanda_atual.cremes.all()
+        produtos1 = comanda_atual.produtos.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
         comanda_id = comanda_atual.id
-        return render(request, 'finalizar.html', {'title':'Fechamento', 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'comanda_id':comanda_id})
+        return render(request, 'finalizar.html', {'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_id})
     if pedido_mix != None and tamanho1 != None and comanda_id != None and adicionais1 == None: ##add novo mix em comanda existente
         comanda_atual = comanda_id
         pedido_mix = mix.objects.filter(img=pedido2, tamanho=tamanho1).get()
@@ -221,8 +356,11 @@ def finalizar(request):
         mixs1 = comanda_atual.mixs.all()
         acais1 = comanda_atual.acais.all()
         casadinhos1 = comanda_atual.casadinhos.all()
+        cremes1 = comanda_atual.cremes.all()
+        produtos1 = comanda_atual.produtos.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
         comanda_id = comanda_atual.id
-        return render(request, 'finalizar.html', {'title':'Fechamento', 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'comanda_id':comanda_id})
+        return render(request, 'finalizar.html', {'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_id})
     if pedido_casadinho != None and tamanho1 != None and comanda_id != None and adicionais1 == None: ##add novo casadinho em comanda existente
         comanda_atual = comanda_id
         pedido_casadinho = casadinho.objects.filter(img=pedido2, tamanho=tamanho1).get()
@@ -236,8 +374,63 @@ def finalizar(request):
         mixs1 = comanda_atual.mixs.all()
         acais1 = comanda_atual.acais.all()
         casadinhos1 = comanda_atual.casadinhos.all()
+        cremes1 = comanda_atual.cremes.all()
+        produtos1 = comanda_atual.produtos.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
         comanda_id = comanda_atual.id
-        return render(request, 'finalizar.html', {'title':'Fechamento', 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'comanda_id':comanda_id})
+        return render(request, 'finalizar.html', {'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_id})
+    if pedido_creme != None and tamanho1 != None and comanda_id != None and adicionais1 == None: ##add novo creme em comanda existente
+        comanda_atual = comanda_id
+        pedido_creme = creme.objects.filter(img=pedido2, tamanho=tamanho1).get()
+        total_pedido = pedido_creme.preco
+        novo_item_creme = itemcreme(creme_item=pedido_creme, total=total_pedido)
+        novo_item_creme.save()
+        comanda_atual.total = comanda_atual.total + total_pedido
+        comanda_atual.save()
+        comanda_atual.cremes.add(novo_item_creme,)
+        comanda_atual.save()
+        mixs1 = comanda_atual.mixs.all()
+        acais1 = comanda_atual.acais.all()
+        casadinhos1 = comanda_atual.casadinhos.all()
+        cremes1 = comanda_atual.cremes.all()
+        produtos1 = comanda_atual.produtos.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
+        comanda_id = comanda_atual.id
+        return render(request, 'finalizar.html', {'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_id})
+    if pedido_sorvete != None and comanda_id != None and adicionais1 == None: ##add novo sorvete em comanda existente
+        comanda_atual = comanda_id
+        total_pedido = pedido_sorvete.preco
+        novo_item_sorv = itemsorvete(sorvete_item=pedido_sorvete, total=total_pedido)
+        novo_item_sorv.save()
+        comanda_atual.total = comanda_atual.total + total_pedido
+        comanda_atual.save()
+        comanda_atual.sorvetes.add(novo_item_sorv,)
+        comanda_atual.save()
+        mixs1 = comanda_atual.mixs.all()
+        acais1 = comanda_atual.acais.all()
+        casadinhos1 = comanda_atual.casadinhos.all()
+        cremes1 = comanda_atual.cremes.all()
+        produtos1 = comanda_atual.produtos.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
+        comanda_id = comanda_atual.id
+        return render(request, 'finalizar.html', {'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_id})
+    if pedido_produto != None and comanda_id != None and adicionais1 == None: ##add novo produto em comanda existente
+        comanda_atual = comanda_id
+        total_pedido = pedido_produto.preco
+        novo_item_prod = itemproduto(produto_item=pedido_produto, total=total_pedido)
+        novo_item_prod.save()
+        comanda_atual.total = comanda_atual.total + total_pedido
+        comanda_atual.save()
+        comanda_atual.produtos.add(novo_item_prod,)
+        comanda_atual.save()
+        mixs1 = comanda_atual.mixs.all()
+        acais1 = comanda_atual.acais.all()
+        casadinhos1 = comanda_atual.casadinhos.all()
+        cremes1 = comanda_atual.cremes.all()
+        produtos1 = comanda_atual.produtos.all()
+        sorvetes1 = comanda_atual.sorvetes.all()
+        comanda_id = comanda_atual.id
+        return render(request, 'finalizar.html', {'title':'Fechamento', 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_id':comanda_id})
     return render(request, 'finalizar.html',{'title':'Fechamento','comanda_id':comanda_id})
 
 def metodo(request):

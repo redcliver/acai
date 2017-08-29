@@ -11,9 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            
             {% for acais in acais1 %}
-            
             <tr>
                 <form method="GET">
                     <input type="hidden" name="comanda_id" value="{{comanda_id}}" />    
@@ -25,8 +23,8 @@
                 </form>
             </tr>
             {% endfor %}
+
             {% for casadinhos in casadinhos1 %}
-            
             <tr>
                 <form method="GET">
                     <input type="hidden" name="comanda_id" value="{{comanda_id}}" />   
@@ -40,7 +38,6 @@
             {% endfor %}
             
             {% for mixs in mixs1 %}
-            
             <tr>
                 <form method="GET">
                     <input type="hidden" name="comanda_id" value="{{comanda_id}}" />
@@ -49,6 +46,45 @@
                     <td><button class="no-click"><img src="../../static/app/img/{{mixs.mix_item.tamanho}}.png" /></button></td>
                     <td><button type="submit" formaction="/pedidos/adicionais/">Adicionar</button></td>
                     <td><h2>R$ {{mixs.total}}</h3></td>
+                </form>
+            </tr>
+            {% endfor %}
+
+            {% for cremes in cremes1 %}
+            <tr>
+                <form method="GET">
+                    <input type="hidden" name="comanda_id" value="{{comanda_id}}" />
+                    <input type="hidden" name="item_creme_id" value="{{cremes}}" />
+                    <td><button class="no-click"><img src="../../static/app/img/{{cremes.creme_item.img}}.png" /></button></td>
+                    <td><button class="no-click"><img src="../../static/app/img/{{cremes.creme_item.tamanho}}.png" /></button></td>
+                    <td><button type="submit" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                    <td><h2>R$ {{cremes.total}}</h3></td>
+                </form>
+            </tr>
+            {% endfor %}
+
+            {% for produtos in produtos1 %}
+            <tr>
+                <form method="GET">
+                    <input type="hidden" name="comanda_id" value="{{comanda_id}}" />
+                    <input type="hidden" name="item_produto_id" value="{{produtos.id}}" />
+                    <td><button class="no-click"><img src="../../static/app/img/{{produtos.produto_item.img}}.png" /></button></td>
+                    <td></td>
+                    <td></td>
+                    <td><h2>R$ {{produtos.total}}</h3></td>
+                </form>
+            </tr>
+            {% endfor %}
+
+            {% for sorvetes in sorvetes1 %}
+            <tr>
+                <form method="GET">
+                    <input type="hidden" name="comanda_id" value="{{comanda_id}}" />
+                    <input type="hidden" name="item_sorvete_id" value="{{sorvetes}}" />
+                    <td><button class="no-click"><img src="../../static/app/img/{{sorvetes.sorvete_item.img}}.png" /></button></td>
+                    <td></td>
+                    <td><button type="submit" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                    <td><h2>R$ {{sorvetes.total}}</h3></td>
                 </form>
             </tr>
             {% endfor %}

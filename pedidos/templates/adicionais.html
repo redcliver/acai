@@ -12,6 +12,13 @@
 <button class="no-click"><img src="../../static/app/img/{{item_mix_id.mix_item.img}}.png" /></button>
 <button class="no-click"><img src="../../static/app/img/{{item_mix_id.mix_item.tamanho}}.png" /></button>
 {% endif %}
+{% if item_creme_id %}
+<button class="no-click"><img src="../../static/app/img/{{item_creme_id.creme_item.img}}.png" /></button>
+<button class="no-click"><img src="../../static/app/img/{{item_creme_id.creme_item.tamanho}}.png" /></button>
+{% endif %}
+{% if item_sorvete_id %}
+<button class="no-click"><img src="../../static/app/img/{{item_sorvete_id.sorvete_item.img}}.png" /></button>
+{% endif %}
 <form method="POST" action="/pedidos/finalizar/">
     {% csrf_token %}
     {% if item_acai_id %}
@@ -22,6 +29,12 @@
     {% endif %}
     {% if item_mix_id %}
         <input type="hidden" name="item_mix_id" value="{{item_mix_id}}" />
+    {% endif %}
+    {% if item_creme_id %}
+        <input type="hidden" name="item_creme_id" value="{{item_creme_id}}" />
+    {% endif %}
+    {% if item_sorvete_id %}
+    <input type="hidden" name="item_sorvete_id" value="{{item_sorvete_id}}" />
     {% endif %}
     <input type="hidden" name="comanda_id" value="{{comanda_id}}" />
     <h3>Adicionais: </h3>

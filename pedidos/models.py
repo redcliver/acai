@@ -106,7 +106,7 @@ class itemcreme(models.Model):
         ('L', 'Leite Condensado'),
     )
     id = models.AutoField(primary_key=True)
-    casadinho_item = models.ForeignKey(creme)
+    creme_item = models.ForeignKey(creme)
     acompanhamento = models.CharField(max_length=1, choices=ACOMP)
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
