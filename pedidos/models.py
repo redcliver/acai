@@ -148,7 +148,7 @@ class mshake(models.Model):
 
 class itemmshake(models.Model):
     id = models.AutoField(primary_key=True)
-    sorvete_item = models.ForeignKey(mshake)
+    mshake_item = models.ForeignKey(mshake)
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)

@@ -12,5 +12,9 @@ urlpatterns = [
     url(r'^addmix/$', views.addmix),
     url(r'^addcreme/$', views.addcreme),
     url(r'^addsorvete/$', views.addsorvete),
+    url(r'^addmshake/$', views.addmshake),
+    url(r'^addpetit/$', views.addpetit),
+    url(r'^addfondue/$', views.addfondue),
+    url(r'^addsuco/$', views.addsuco),
     url(r'^addproduto/$', views.addproduto),
     ]

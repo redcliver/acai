@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from pedidos.models import produto , sorvete, adicional, acai, mix, casadinho, creme
+from pedidos.models import produto , sorvete, adicional, acai, mix, casadinho, creme, mshake, petit, fondue, suco
 
 # Create your views here.
 def outros(request):
@@ -77,7 +77,47 @@ def addsorvete(request):
         msg = "Sorvete salvo com sucesso!"
         return render(request, 'home/home.html',{'title':'Home', 'msg':msg})
     return render(request, 'addsorvete.html', {'title':'Add Sorvete'})
-
+def addmshake(request):
+    if request.method == 'POST':
+        mshake_nome = request.POST.get('nome')
+        mshake_img = request.POST.get('img')
+        mshake_preco = request.POST.get('preco')
+        mshake_tamanho = request.POST.get('tamanho')
+        novo_mshake = mshake(nome=mshake_nome, img=mshake_img, preco=mshake_preco, tamanho=mshake_tamanho)
+        novo_mshake.save()
+        msg = "Milk Shake salvo com sucesso!"
+        return render(request, 'home/home.html',{'title':'Home', 'msg':msg})
+    return render(request, 'addmshake.html', {'title':'Add Milk Shake'})
+def addpetit(request):
+    if request.method == 'POST':
+        petit_nome = request.POST.get('nome')
+        petit_img = request.POST.get('img')
+        petit_preco = request.POST.get('preco')
+        novo_petit = petit(nome=petit_nome, img=petit_img, preco=petit_preco)
+        novo_petit.save()
+        msg = "Petit Gateau salvo com sucesso!"
+        return render(request, 'home/home.html',{'title':'Home', 'msg':msg})
+    return render(request, 'addpetit.html', {'title':'Add Petit Gateau'})
+def addfondue(request):
+    if request.method == 'POST':
+        fond_nome = request.POST.get('nome')
+        fond_img = request.POST.get('img')
+        fond_preco = request.POST.get('preco')
+        novo_fond = fondue(nome=fond_nome, img=fond_img, preco=fond_preco)
+        novo_fond.save()
+        msg = "Fondue salvo com sucesso!"
+        return render(request, 'home/home.html',{'title':'Home', 'msg':msg})
+    return render(request, 'addfondue.html', {'title':'Add Fondue'})
+def addsuco(request):
+    if request.method == 'POST':
+        suco_nome = request.POST.get('nome')
+        suco_img = request.POST.get('img')
+        suco_preco = request.POST.get('preco')
+        novo_suco = suco(nome=suco_nome, img=suco_img, preco=suco_preco)
+        novo_suco.save()
+        msg = "Suco salvo com sucesso!"
+        return render(request, 'home/home.html',{'title':'Home', 'msg':msg})
+    return render(request, 'addsuco.html', {'title':'Add Suco'})
 
 def addadicional(request):
     return render(request, 'addadicional.html', {'title':'Add Adicional'})

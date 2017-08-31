@@ -71,3 +71,14 @@ label > input { /* HIDE RADIO */
     pointer-events: none;
 }
 
+.style {
+    padding: 29px;
+}
+
+.style1 {
+    padding: 20px;
+}
+
+.total {
+    color: #772B66;
+}

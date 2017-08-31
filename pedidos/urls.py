@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^dinheiro/$', views.dinheiro),
     url(r'^cartao/$', views.cartao),
     url(r'^troco/$', views.troco),
+    url(r'^desconto/$', views.desconto),
     ]

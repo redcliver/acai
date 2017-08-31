@@ -1,3 +1,14 @@
 {% extends 'base.html' %}
 {% block body %}
+<form method="GET" action="/pedidos/confirmacao/">
+    <input type="hidden" name="comanda_id" value={{comanda_id}} />
+    <button type="submit" name="pedido" value="sucolaranja"><img src="../../static/app/img/sucolaranja.png" /></button>
+    <button type="submit" name="pedido" value="sucolaranjaacerola"><img src="../../static/app/img/sucolaranjaacerola.png" /></button>
+    <button type="submit" name="pedido" value="sucoacerola"><img src="../../static/app/img/sucoacerola.png" /></button>
+    <button type="submit" name="pedido" value="sucomorango"><img src="../../static/app/img/sucomorango.png" /></button>
+    <button type="submit" name="pedido" value="sucomaracuja"><img src="../../static/app/img/sucomaracuja.png" /></button>
+    <button type="submit" name="pedido" value="sucocupuacu"><img src="../../static/app/img/sucocupuacu.png" /></button>
+    <button type="submit" name="pedido" value="sucoabacaxi"><img src="../../static/app/img/sucoabacaxi.png" /></button>
+    <button type="submit" name="pedido" value="sucoabacaxihortela"><img src="../../static/app/img/sucoabacaxihortela.png" /></button>
+</form>
 {% endblock %}

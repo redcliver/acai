@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block body %}
-<form method="GET">
-    <button type="submit" name="fondue" value="classico"><img src="../../static/app/img/classico.png" /></button>
-    <button type="submit" name="fondue" value="kids"><img src="../../static/app/img/kids.png" /></button>
-    <button type="submit" name="fondue" value="zerograu"><img src="../../static/app/img/zerograu.png" /></button>
+<form method="GET" action="/pedidos/confirmacao/">
+    <input type="hidden" name="comanda_id" value="{{comanda_id}}" />
+    <button type="submit" name="pedido" value="fondueclassico"><img src="../../static/app/img/fondueclassico.png" /></button>
+    <button type="submit" name="pedido" value="fonduekids"><img src="../../static/app/img/fonduekids.png" /></button>
+    <button type="submit" name="pedido" value="fonduezerograu"><img src="../../static/app/img/fonduezerograu.png" /></button>
 </form>
 {% endblock %}
