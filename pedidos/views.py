@@ -8,27 +8,27 @@ def pedidos(request):
     comanda_id = request.GET.get('comanda_id')
     pedido1 = request.GET.get('pedido')
     if pedido1 == 'acai':
-        return render(request, 'acai.html', {'title':'Acai', 'comanda_id':comanda_id})
+        return render(request, 'acai.html', {'title':'Acai na Tigela', 'comanda_id':comanda_id})
     if pedido1 == 'casadinho':
-        return render(request, 'casadinho.html', {'title':'Casadinho', 'comanda_id':comanda_id})
+        return render(request, 'casadinho.html', {'title':'Açaí Casadinho', 'comanda_id':comanda_id})
     if pedido1 == 'mix':
-        return render(request, 'mix.html', {'title':'Mix', 'comanda_id':comanda_id})
+        return render(request, 'mix.html', {'title':'Açaí Mix', 'comanda_id':comanda_id})
     if pedido1 == 'acaienergy':
-        return render(request, 'acaienergy.html', {'title':'acaienergy', 'comanda_id':comanda_id})
+        return render(request, 'acaienergy.html', {'title':'Açaí Energy', 'comanda_id':comanda_id})
     if pedido1 == 'acaicreme':
-        return render(request, 'acaicreme.html', {'title':'acaicreme', 'comanda_id':comanda_id})
+        return render(request, 'acaicreme.html', {'title':'Cremes', 'comanda_id':comanda_id})
     if pedido1 == 'sorvete':
         return render(request, 'sorvete.html', {'title':'sorvete', 'comanda_id':comanda_id})
     if pedido1 == 'milkshake':
-        return render(request, 'milkshake.html', {'title':'milkshake', 'comanda_id':comanda_id})
+        return render(request, 'milkshake.html', {'title':'Milk Shake', 'comanda_id':comanda_id})
     if pedido1 == 'petit':
-        return render(request, 'petit.html', {'title':'petit', 'comanda_id':comanda_id})
+        return render(request, 'petit.html', {'title':'Petit Gateau', 'comanda_id':comanda_id})
     if pedido1 == 'fondue':
-        return render(request, 'fondue.html', {'title':'fondue', 'comanda_id':comanda_id})
+        return render(request, 'fondue.html', {'title':'Fondue', 'comanda_id':comanda_id})
     if pedido1 == 'sucos':
-        return render(request, 'sucos.html', {'title':'sucos', 'comanda_id':comanda_id})
+        return render(request, 'sucos.html', {'title':'Sucos', 'comanda_id':comanda_id})
     if pedido1 == 'produtos':
-        return render(request, 'produtos.html', {'title':'produtos', 'comanda_id':comanda_id})
+        return render(request, 'produtos.html', {'title':'Produtos', 'comanda_id':comanda_id})
 
     return render(request, 'pedidos.html', {'title':'Pedidos', 'comanda_id':comanda_id})
 
@@ -53,6 +53,7 @@ def adicionais(request):
     item_fondue_id = request.GET.get('item_fondue_id')
     adicionais = adicional.objects.all()
     comanda_id = request.GET.get('comanda_id')
+    
     try:
         item_acai_id = itemacai.objects.filter(id=item_acai_id).get()
     except:
