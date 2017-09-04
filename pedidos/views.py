@@ -2,6 +2,7 @@ from django.shortcuts import render
 from pedidos.models import comanda, produto, sorvete ,itemsorvete , itemproduto, adicional, acai, itemacai, mix, itemmix, casadinho, itemcasadinho, creme, itemcreme, mshake, itemmshake, petit, itempetit, fondue, itemfondue, suco, itemsuco
 from caixa.models import caixa
 from decimal import *
+from escposprinter import *
 
 # Create your views here.
 def pedidos(request):
@@ -729,7 +730,74 @@ def finalizar(request):
 def metodo(request):
     comanda_id = request.GET.get('comanda_id')
     comanda_atual = comanda.objects.filter(id=comanda_id).get()
-
+    Epson = printer.Usb(0x04b8,0x0202)
+    acais1 = comanda_atual.acais.all()
+    mixs1 = comanda_atual.mixs.all()
+    casadinhos1 = comanda_atual.casadinhos.all()
+    produtos1 = comanda_atual.produtos.all()
+    cremes1 = comanda_atual.cremes.all()
+    sorvetes1 = comanda_atual.sorvetes.all()
+    mshakes1 = comanda_atual.mshakes.all()
+    petits1 = comanda_atual.petits.all()
+    fondues1 = comanda_atual.fondues.all()
+    
+    Epson.text("Comanda N: " + str(comanda_atual.id))
+    Epson.text('\n')
+    Epson.text('\n')
+    Epson.text('------------------------------------------------\n')
+    for acais in acais1:
+        Epson.text("Acai : " + str(acais.acai_item.nome))
+        Epson.text('\n')
+        Epson.text('\n')
+        Epson.text("Tamanho : " + str(acais.acai_item.tamanho))
+        Epson.text('\n')
+        Epson.text('\n')
+        adds = acais.adicionais.all()
+        if adds != None:
+            Epson.text('Adicionais:')
+            Epson.text('\n')
+            for adicionais in adds:
+                Epson.text("   - " + str(adicionais))
+                Epson.text('\n')
+            Epson.text('------------------------------------------------\n')
+            Epson.text('\n')
+            Epson.text('\n')
+    for mixs in mixs1:
+        Epson.text("Mix : " + str(mixs.mix_item.nome))
+        Epson.text('\n')
+        Epson.text('\n')
+        Epson.text("Tamanho : " + str(mixs.mix_item.tamanho))
+        Epson.text('\n')
+        Epson.text('\n')
+        adds = mixs.adicionais.all()
+        if adds != None:
+            Epson.text('Adicionais:')
+            Epson.text('\n')
+            for adicionais in adds:
+                Epson.text("   - " + str(adicionais))
+                Epson.text('\n')
+            Epson.text('------------------------------------------------\n')
+            Epson.text('\n')
+            Epson.text('\n')
+    for casadinhos in casadinhos1:
+        Epson.text("Mix : " + str(casadinhos.casadinho_item.nome))
+        Epson.text('\n')
+        Epson.text('\n')
+        Epson.text("Tamanho : " + str(casadinhos.casadinho_item.tamanho))
+        Epson.text('\n')
+        Epson.text('\n')
+        adds = casadinhos.adicionais.all()
+        if adds != None:
+            Epson.text('Adicionais:')
+            Epson.text('\n')
+            for adicionais in adds:
+                Epson.text("   - " + str(adicionais))
+                Epson.text('\n')
+            Epson.text('------------------------------------------------\n')
+            Epson.text('\n')
+            Epson.text('\n')
+    Epson.cut()
+    
     return render(request, 'metodo.html', {'title':'Metodo de pagamento', 'comanda_atual':comanda_atual})
 
 def dinheiro(request):
@@ -741,6 +809,7 @@ def dinheiro(request):
     novo_total = caixa_atual.total + comanda_atual.total
     nova_entrada = caixa(total=novo_total, item=item_caixa, obs=metodo_caixa)
     nova_entrada.save()
+    
     return render(request, 'dinheiro.html',{'title':'Pagamento em dinheiro', 'comanda_atual':comanda_atual})
 
 def cartao(request):
