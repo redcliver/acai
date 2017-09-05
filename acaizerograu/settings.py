@@ -88,16 +88,10 @@ WSGI_APPLICATION = 'acaizerograu.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sorveteria',
-        'USER': 'igor',
-        'PASSWORD': 'igor3355',
-        'HOST': '127.0.0.1',
-        'PORT': '', # 8000 is default
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-DATABASES['default'] = dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
