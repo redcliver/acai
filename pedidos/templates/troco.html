@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block body %}
-<form method="GET" action="/">
+<form method="GET" action="/pedidos/finalizar1/">
+    <input type="hidden" name="comanda_id" value="{{comanda_atual.id}}" />
+    <input type="hidden" name="recebido" value="{{recebido}}" />
+    <input type="hidden" name="troco" value="{{troco}}" />
 <h3 class="total"> Total: {{comanda_atual.total}}</h3>
     <h3>
     Recebido:

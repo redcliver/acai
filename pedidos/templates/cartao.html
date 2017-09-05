@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
-<form>
-<h3 class="total"> Total: {{comanda_atual.total}}<h3>
+<form method="GET" action="/pedidos/finalizar2/">
+    <input type="hidden" name="comanda_id" value="{{comanda_atual.id}}"/>
+    <h3 class="total"> Total: {{comanda_atual.total}}<h3>
     <br>
-    <button autofocus class="style1" type="submit" formaction="/">Finalizar</button>
+    <button autofocus class="style1" type="submit">Finalizar</button>
 </form>
 
 {% endblock %}

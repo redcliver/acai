@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^tamanho/$', views.tamanho),
     url(r'^adicionais/$', views.adicionais),
     url(r'^finalizar/$', views.finalizar),
+    url(r'^finalizar1/$', views.finalizar1),
+    url(r'^finalizar2/$', views.finalizar2),
     url(r'^metodo/$', views.metodo),
     url(r'^dinheiro/$', views.dinheiro),
     url(r'^cartao/$', views.cartao),

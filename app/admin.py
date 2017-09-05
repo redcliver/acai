@@ -1,6 +1,7 @@
 from django.contrib import admin
 from pedidos.models import comanda, adicional, sorvete, acai, itemacai, mix, itemmix, mshake, petit, fondue, suco, creme, produto, casadinho
 from caixa.models import caixa
+from outros.models import senha
 
 admin.site.register(comanda)
 admin.site.register(adicional)
@@ -17,3 +18,4 @@ admin.site.register(suco)
 admin.site.register(creme)
 admin.site.register(produto)
 admin.site.register(casadinho)
+admin.site.register(senha)
