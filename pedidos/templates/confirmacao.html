@@ -1,12 +1,35 @@
 {% extends 'base.html' %}
 {% block body %}
-<h3>Pedido:</h3>
-<button class="no-click"><img src="../../static/app/img/{{pedido1}}.png" /></button>
-<form method="POST" action="/pedidos/finalizar/">
-    {% csrf_token %}
-    <input type="hidden" name="comanda_id" value={{comanda_id}} />
-    <h3>Confirmação:</h3>
-    <button type="submit" name="pedido_produto" value="{{pedido1}}"><img src="../../static/app/img/confirmacao.png" /></button>
-</form>
-<button type="submit" onclick="history.go(-1)"><img src="../../static/app/img/cancelar.png" /></button>
-{% endblock %}
+{% load staticfiles %}
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar menu-lateral">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link " href="/pedidos">Novo Pedido <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link active" href="#">Confirmacao<span class="sr-only">(current)</span></a>
+                    </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3 main-fundo">
+    <section class="row text-center placeholders">
+        <div class="jumbotron busca">
+            <div class="container">
+                <h3>Pedido:</h3>
+                <button class="fundo1" class="no-click"><img src="../../static/img/{{pedido1}}.png" /></button>
+                <form method="POST" action="/pedidos/finalizar/">
+                    {% csrf_token %}
+                    <input type="hidden" name="comanda_id" value={{comanda_id}} />
+                    <h3>Confirmação:</h3>
+                    <button class="fundo1" type="submit" name="pedido_produto" value="{{pedido1}}"><img src="../../static/img/confirmacao.png" /></button>
+                </form>
+                <button class="fundo1" type="submit" onclick="history.go(-1)"><img src="../../static/img/cancelar.png" /></button>
+            </div>
+        </div>
+    </section>
+</main>
+        {% endblock %}

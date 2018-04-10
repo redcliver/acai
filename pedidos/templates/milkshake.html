@@ -1,19 +1,42 @@
 {% extends 'base.html' %}
 {% block body %}
-<form method="GET" action="/pedidos/tamanho">
-    <input type="hidden" name="comanda_id" value={{comanda_id}} />
-    <button type="submit" name="pedido" value="milkcremebranco"><img src="../../static/app/img/milkcremebranco.png" /></button>
-    <button type="submit" name="pedido" value="milkmorango"><img src="../../static/app/img/milkmorango.png" /></button>
-    <button type="submit" name="pedido" value="milkchocolate"><img src="../../static/app/img/milkchocolate.png" /></button>
-    <button type="submit" name="pedido" value="milkninho"><img src="../../static/app/img/milkninho.png" /></button>
-    <button type="submit" name="pedido" value="milkovomaltine"><img src="../../static/app/img/milkovomaltine.png" /></button>
-    <button type="submit" name="pedido" value="milkoreo"><img src="../../static/app/img/milkoreo.png" /></button>
-    <button type="submit" name="pedido" value="milkcappuccino"><img src="../../static/app/img/milkcappuccino.png" /></button>
-    <button type="submit" name="pedido" value="milkpacoca"><img src="../../static/app/img/milkpacoca.png" /></button>
-    <button type="submit" name="pedido" value="milkcookies"><img src="../../static/app/img/milkcookies.png" /></button>
-    <button type="submit" name="pedido" value="milkmorangoovomaltine"><img src="../../static/app/img/milkmorangoovomaltine.png" /></button>
-    <button type="submit" name="pedido" value="milkmorangonutella"><img src="../../static/app/img/milkmorangonutella.png" /></button>
-    <button type="submit" name="pedido" value="milkovomaltinenutella"><img src="../../static/app/img/milkovomaltinenutella.png" /></button>
-    <button type="submit" name="pedido" value="milkninhonutella"><img src="../../static/app/img/milkninhonutella.png" /></button>
-</form>
+{% load staticfiles %}
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar menu-lateral">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link " href="/pedidos">Novo Pedido <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link active" href="#">Novo Milk Shake <span class="sr-only">(current)</span></a>
+                    </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3 main-fundo">
+    <section class="row text-center placeholders">
+        <div class="jumbotron busca">
+            <div class="container">
+                <form method="GET" action="/pedidos/tamanho">
+                    <input type="hidden" name="comanda_id" value={{comanda_id}} />
+                    <button class="fundo1" type="submit" name="pedido" value="milkcremebranco"><img src="../../static/img/milkcremebranco.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkmorango"><img src="../../static/img/milkmorango.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkchocolate"><img src="../../static/img/milkchocolate.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkninho"><img src="../../static/img/milkninho.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkovomaltine"><img src="../../static/img/milkovomaltine.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkoreo"><img src="../../static/img/milkoreo.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkcappuccino"><img src="../../static/img/milkcappuccino.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkpacoca"><img src="../../static/img/milkpacoca.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkcookies"><img src="../../static/img/milkcookies.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkmorangoovomaltine"><img src="../../static/img/milkmorangoovomaltine.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkmorangonutella"><img src="../../static/img/milkmorangonutella.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkovomaltinenutella"><img src="../../static/img/milkovomaltinenutella.png" /></button>
+                    <button class="fundo1" type="submit" name="pedido" value="milkninhonutella"><img src="../../static/img/milkninhonutella.png" /></button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}
