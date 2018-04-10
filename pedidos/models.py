@@ -13,6 +13,7 @@ class acai(models.Model):
     SIZES = (
         ('P', 'Pequeno'),
         ('G', 'Grande'),
+        ('X', 'GG'),
     )
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
