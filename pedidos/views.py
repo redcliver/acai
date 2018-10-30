@@ -732,7 +732,7 @@ def metodo(request):
     comanda_id = request.GET.get('comanda_id')
     comanda_atual = comanda.objects.filter(id=comanda_id).get()
     senha1 = senha.objects.latest('id')
-    Epson = printer.Usb(0x04b8,0x0202)
+    """Epson = printer.Usb(0x04b8,0x0202)
     acais1 = comanda_atual.acais.all()
     mixs1 = comanda_atual.mixs.all()
     casadinhos1 = comanda_atual.casadinhos.all()
@@ -899,7 +899,7 @@ def metodo(request):
             Epson.text('\n')
             Epson.text('\n')
         
-    Epson.cut()
+    Epson.cut()"""
     
     return render(request, 'metodo.html', {'title':'Metodo de pagamento', 'comanda_atual':comanda_atual})
 
@@ -907,7 +907,7 @@ def dinheiro(request):
     comanda_id = request.GET.get('comanda_id')
     comanda_atual = comanda.objects.filter(id=comanda_id).get()
     caixa_atual = caixa.objects.latest('id')
-    item_caixa = "Comanda numero : "+str(comanda_atual.id)
+    item_caixa = str(comanda_atual.id)
     metodo_caixa = "Dinheiro"
     novo_total = caixa_atual.total + comanda_atual.total
     nova_entrada = caixa(total=novo_total, item=item_caixa, obs=metodo_caixa)
@@ -922,7 +922,7 @@ def dinheiro(request):
     petits1 = comanda_atual.petits.all()
     fondues1 = comanda_atual.fondues.all()
     sucos1 =comanda_atual.sucos.all()
-    Epson = printer.Usb(0x04b8,0x0202)
+    """Epson = printer.Usb(0x04b8,0x0202)
     Epson.set(align='center')
     Epson.text("C O N F E R E N C I A   S I M P L E S \n\n")
     Epson.text("* * * NAO TEM VALOR FISCAL * * *\n")
@@ -1101,7 +1101,7 @@ def dinheiro(request):
         Epson.set(align='right')
         Epson.text('Total : R$'+str(fondues.total)+'\n')
         Epson.set(align='left')
-        Epson.text('------------------------------------------------\n')
+        Epson.text('------------------------------------------------\n')"""
     
     return render(request, 'dinheiro.html',{'title':'Pagamento em dinheiro', 'comanda_atual':comanda_atual})
 
@@ -1109,7 +1109,7 @@ def cartao(request):
     comanda_id = request.GET.get('comanda_id')
     comanda_atual = comanda.objects.filter(id=comanda_id).get()
     caixa_atual = caixa.objects.latest('id')
-    item_caixa = "Comanda numero : "+str(comanda_atual.id)
+    item_caixa = str(comanda_atual.id)
     metodo_caixa = "Cartao"
     novo_total = caixa_atual.total + comanda_atual.total
     nova_entrada = caixa(total=novo_total, item=item_caixa, obs=metodo_caixa)
@@ -1124,7 +1124,7 @@ def cartao(request):
     petits1 = comanda_atual.petits.all()
     fondues1 = comanda_atual.fondues.all()
     sucos1 = comanda_atual.sucos.all()
-    Epson = printer.Usb(0x04b8,0x0202)
+    """Epson = printer.Usb(0x04b8,0x0202)
     Epson.set(align='center')
     Epson.text("C O N F E R E N C I A   S I M P L E S \n\n")
     Epson.text("* * * NAO TEM VALOR FISCAL * * *\n")
@@ -1312,7 +1312,7 @@ def cartao(request):
     Epson.text('Obrigado e volte sempre!\n')
     Epson.cashdraw(2)
     Epson.cut()
-    Epson.set(align='right')
+    Epson.set(align='right')"""
     return render(request, 'cartao.html',{'title':'Pagamento em cartao', 'comanda_atual':comanda_atual})
 
 def troco(request):
@@ -1320,7 +1320,7 @@ def troco(request):
     comanda_atual = comanda.objects.filter(id=comanda_id).get()
     recebido = request.GET.get('recebido')
     troco = Decimal(recebido) - comanda_atual.total 
-    Epson = printer.Usb(0x04b8,0x0202)
+    """Epson = printer.Usb(0x04b8,0x0202)
     Epson.set(align='center')
     Epson.text('Total : R$'+ str(comanda_atual.total)+'\n')
     Epson.text('Recebido : R$'+str(recebido)+'\n')
@@ -1329,7 +1329,7 @@ def troco(request):
     Epson.text('Obrigado e volte sempre!\n')
     Epson.cashdraw(2)
     Epson.cut()
-    Epson.set(align='right')
+    Epson.set(align='right')"""
     return render(request, 'troco.html',{'title':'Troco', 'comanda_atual':comanda_atual, 'troco':troco, 'recebido':recebido})
 def desconto(request):
     comanda_id = request.GET.get('comanda_id')
@@ -1356,7 +1356,7 @@ def finalizar2(request):
     petits1 = comanda_atual.petits.all()
     fondues1 = comanda_atual.fondues.all()
     sucos1 = comanda_atual.sucos.all()
-    Epson = printer.Usb(0x04b8,0x0202)
+    """Epson = printer.Usb(0x04b8,0x0202)
     Epson.set(align='center')
     Epson.text("C O N F E R E N C I A   S I M P L E S \n\n")
     Epson.text("* * * NAO TEM VALOR FISCAL * * *\n")
@@ -1543,7 +1543,7 @@ def finalizar2(request):
     Epson.text('Metodo: Cartao\n\n\n')
     Epson.text('Obrigado e volte sempre!\n')
     Epson.cut()
-    Epson.set(align='right')
+    Epson.set(align='right')"""
     msg = "Pedido finalizado com sucesso!"
     return render(request, 'home/home.html', {'title':'Home','msg':msg})
 def finalizar1(request):
@@ -1561,7 +1561,7 @@ def finalizar1(request):
     petits1 = comanda_atual.petits.all()
     fondues1 = comanda_atual.fondues.all()
     sucos1 = comanda_atual.sucos.all()
-    Epson = printer.Usb(0x04b8,0x0202)
+    """Epson = printer.Usb(0x04b8,0x0202)
     Epson.set(align='center')
     Epson.text("C O N F E R E N C I A   S I M P L E S \n\n")
     Epson.text("* * * NAO TEM VALOR FISCAL * * *\n")
@@ -1748,6 +1748,6 @@ def finalizar1(request):
     Epson.text('Metodo: Dinheiro\n\n\n')
     Epson.text('Obrigado e volte sempre!\n')
     Epson.cut()
-    Epson.set(align='right')
+    Epson.set(align='right')"""
     msg = "Pedido finalizado com sucesso!"
     return render(request, 'home/home.html', {'title':'Home','msg':msg})

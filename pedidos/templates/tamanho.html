@@ -20,7 +20,7 @@
         <div class="jumbotron busca">
             <div class="container">
                 <h3>Pedido:</h3>
-                <button class="fundo1" class="no-click"><img src="../../static/app/img/{{pedido1}}.png" /></button>
+                <button class="fundo1 no-click"><img src="../../static/app/img/{{pedido1}}.png" /></button>
                 <form method="POST" action="/pedidos/finalizar/">
                     {% csrf_token %}
                     <input type="hidden" name="comanda_id" value={{comanda_id}} />
