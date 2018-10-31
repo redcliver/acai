@@ -19,6 +19,7 @@
     <section class="row text-center placeholders">
         <div class="jumbotron busca">
             <div class="container">
+                <form>
                 <table class="table">
                     <thead>
                         <tr>
@@ -37,7 +38,7 @@
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{acais.acai_item.img}}.png" /></button></td>
                                 <td><button class="no-click fundo1" ><img src="../../static/img/{{acais.acai_item.tamanho}}.png" /></button></td>
                                 <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
-                                <td><h2>R$ {{acais.total}}</h3></td>
+                                <td><h2>R$ {{acais.total}}</h2></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -50,7 +51,7 @@
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{casadinhos.casadinho_item.img}}.png" /></button></td>
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{casadinhos.casadinho_item.tamanho}}.png" /></button></td>
                                 <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
-                                <td><h2>R$ {{casadinhos.total}}</h3></td>
+                                <td><h2>R$ {{casadinhos.total}}</h2></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -63,7 +64,7 @@
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{mixs.mix_item.img}}.png" /></button></td>
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{mixs.mix_item.tamanho}}.png" /></button></td>
                                 <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
-                                <td><h2>R$ {{mixs.total}}</h3></td>
+                                <td><h2>R$ {{mixs.total}}</h2></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -76,7 +77,7 @@
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{cremes.creme_item.img}}.png" /></button></td>
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{cremes.creme_item.tamanho}}.png" /></button></td>
                                 <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
-                                <td><h2>R$ {{cremes.total}}</h3></td>
+                                <td><h2>R$ {{cremes.total}}</h2></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -89,7 +90,7 @@
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{produtos.produto_item.img}}.png" /></button></td>
                                 <td></td>
                                 <td></td>
-                                <td><h2>R$ {{produtos.total}}</h3></td>
+                                <td><h2>R$ {{produtos.total}}</h2></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -102,7 +103,7 @@
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{sorvetes.sorvete_item.img}}.png" /></button></td>
                                 <td></td>
                                 <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
-                                <td><h2>R$ {{sorvetes.total}}</h3></td>
+                                <td><h2>R$ {{sorvetes.total}}</h2></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -115,7 +116,7 @@
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{mshakes.mshake_item.img}}.png" /></button></td>
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{mshakes.mshake_item.tamanho}}.png" /></button></td>
                                 <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
-                                <td><h2>R$ {{mshakes.total}}</h3></td>
+                                <td><h2>R$ {{mshakes.total}}</h2></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -128,7 +129,7 @@
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{petits.petit_item.img}}.png" /></button></td>
                                 <td></td>
                                 <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
-                                <td><h2>R$ {{petits.total}}</h3></td>
+                                <td><h2>R$ {{petits.total}}</h2></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -141,7 +142,7 @@
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{fondues.fondue_item.img}}.png" /></button></td>
                                 <td></td>
                                 <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
-                                <td><h2>R$ {{fondues.total}}</h3></td>
+                                <td><h2>R$ {{fondues.total}}</h2></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -154,7 +155,7 @@
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{sucos.suco_item.img}}.png" /></button></td>
                                 <td></td>
                                 <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
-                                <td><h2>R$ {{sucos.total}}</h3></td>
+                                <td><h2>R$ {{sucos.total}}</h2></td>
                             </form>
                         </tr>
                         {% endfor %}

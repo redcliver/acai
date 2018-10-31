@@ -732,7 +732,7 @@ def metodo(request):
     comanda_id = request.GET.get('comanda_id')
     comanda_atual = comanda.objects.filter(id=comanda_id).get()
     senha1 = senha.objects.latest('id')
-    Epson = printer.Usb(0x04b8,0x0202)
+    """Epson = printer.Usb(0x04b8,0x0202)
     acais1 = comanda_atual.acais.all()
     mixs1 = comanda_atual.mixs.all()
     casadinhos1 = comanda_atual.casadinhos.all()
@@ -899,7 +899,7 @@ def metodo(request):
             Epson.text('\n')
             Epson.text('\n')
         
-    Epson.cut()
+    Epson.cut()"""
     
     return render(request, 'metodo.html', {'title':'Metodo de pagamento', 'comanda_atual':comanda_atual})
 
@@ -907,7 +907,7 @@ def dinheiro(request):
     comanda_id = request.GET.get('comanda_id')
     comanda_atual = comanda.objects.filter(id=comanda_id).get()
     caixa_atual = caixa.objects.latest('id')
-    item_caixa = "Comanda numero : "+str(comanda_atual.id)
+    item_caixa = str(comanda_atual.id)
     metodo_caixa = "Dinheiro"
     novo_total = caixa_atual.total + comanda_atual.total
     nova_entrada = caixa(total=novo_total, item=item_caixa, obs=metodo_caixa)
@@ -1109,7 +1109,7 @@ def cartao(request):
     comanda_id = request.GET.get('comanda_id')
     comanda_atual = comanda.objects.filter(id=comanda_id).get()
     caixa_atual = caixa.objects.latest('id')
-    item_caixa = "Comanda numero : "+str(comanda_atual.id)
+    item_caixa = str(comanda_atual.id)
     metodo_caixa = "Cartao"
     novo_total = caixa_atual.total + comanda_atual.total
     nova_entrada = caixa(total=novo_total, item=item_caixa, obs=metodo_caixa)

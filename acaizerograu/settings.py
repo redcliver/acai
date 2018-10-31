@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sorveteria',
         'USER': 'postgres',
-        'PASSWORD': '123456',
+        'PASSWORD': '123456', #123456
         'HOST': '127.0.0.1',
         'PORT': '', # 8000 is default
     }
@@ -118,9 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'pt-br'
 
 USE_I18N = True
 
@@ -128,10 +126,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+TIME_ZONE = 'America/Sao_Paulo'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
 
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))

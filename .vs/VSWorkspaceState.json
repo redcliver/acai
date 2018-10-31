@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\env\\Lib",
+    "\\env\\Lib\\site-packages",
+    "\\env\\Lib\\site-packages\\django",
+    "\\env\\Lib\\site-packages\\django\\contrib",
+    "\\env\\Lib\\site-packages\\django\\contrib\\admin",
+    "\\home",
+    "\\home\\acai\\acai",
+    "\\home\\templates"
+  ],
+  "SelectedNode": "\\home\\templates\\base.html",
+  "PreviewInSolutionExplorer": false
+}

@@ -17,10 +17,12 @@
         <div class="jumbotron busca">
             <div class="container">
                 <h2>Valor em caixa: R${{caixa_atual.total}}</h2><br />
-                <form >
-                    <button class="fundo1" type="submit" formaction="retirada"><img src="../../static/app/img/retirada.png" />Retirada</button>
-                    <button class="fundo1" type="submit" formaction="extrato"><img src="../../static/app/img/extrato.png" />Extrato</button>
-                    <button class="fundo1" type="submit" formaction="fechar"><img src="../../static/app/img/fechar.png" />Fechar</button>
+                <form>
+                    <button class="fundo1" type="submit" formaction="retirada"><img src="{% static '/img/retirada.png' %}" /><br />Retirada</button>&nbsp;&nbsp;
+                    <button class="fundo1" type="submit" formaction="entrada"><img src="{% static '/img/entrada.png' %}" /><br />Entrada</button>&nbsp;&nbsp;
+                    <button class="fundo1" type="submit" formaction="extrato"><img src="{% static '/img/extrato.png' %}" /><br />Extrato</button>&nbsp;&nbsp;
+                    <button class="fundo1" type="submit" formaction="fechar"><img src="{% static '/img/fechar.png' %}" /><br />Fechar</button>&nbsp;&nbsp;
+                    <button class="fundo1" type="submit" formaction="dados"><img src="{% static '/img/grafico.png' %}" /><br />Dados</button>&nbsp;&nbsp;
                 </form>
             </div>
         </div>

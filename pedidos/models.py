@@ -26,7 +26,7 @@ class acai(models.Model):
 
 class itemacai(models.Model):
     id = models.AutoField(primary_key=True)
-    acai_item = models.ForeignKey(acai)
+    acai_item = models.ForeignKey(acai, on_delete=models.CASCADE)
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
@@ -50,7 +50,7 @@ class mix(models.Model):
 
 class itemmix(models.Model):
     id = models.AutoField(primary_key=True)
-    mix_item = models.ForeignKey(mix)
+    mix_item = models.ForeignKey(mix, on_delete=models.CASCADE)
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
@@ -78,7 +78,7 @@ class itemcasadinho(models.Model):
         ('L', 'Leite Condensado'),
     )
     id = models.AutoField(primary_key=True)
-    casadinho_item = models.ForeignKey(casadinho)
+    casadinho_item = models.ForeignKey(casadinho, on_delete=models.CASCADE)
     acompanhamento = models.CharField(max_length=1, choices=ACOMP)
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
@@ -107,7 +107,7 @@ class itemcreme(models.Model):
         ('L', 'Leite Condensado'),
     )
     id = models.AutoField(primary_key=True)
-    creme_item = models.ForeignKey(creme)
+    creme_item = models.ForeignKey(creme, on_delete=models.CASCADE)
     acompanhamento = models.CharField(max_length=1, choices=ACOMP)
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
@@ -126,7 +126,7 @@ class sorvete(models.Model):
 
 class itemsorvete(models.Model):
     id = models.AutoField(primary_key=True)
-    sorvete_item = models.ForeignKey(sorvete)
+    sorvete_item = models.ForeignKey(sorvete, on_delete=models.CASCADE)
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
@@ -149,7 +149,7 @@ class mshake(models.Model):
 
 class itemmshake(models.Model):
     id = models.AutoField(primary_key=True)
-    mshake_item = models.ForeignKey(mshake)
+    mshake_item = models.ForeignKey(mshake, on_delete=models.CASCADE)
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
@@ -167,7 +167,7 @@ class petit(models.Model):
 
 class itempetit(models.Model):
     id = models.AutoField(primary_key=True)
-    petit_item = models.ForeignKey(petit)
+    petit_item = models.ForeignKey(petit, on_delete=models.CASCADE)
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
@@ -186,7 +186,7 @@ class fondue(models.Model):
 
 class itemfondue(models.Model):
     id = models.AutoField(primary_key=True)
-    fondue_item = models.ForeignKey(fondue)
+    fondue_item = models.ForeignKey(fondue, on_delete=models.CASCADE)
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
@@ -204,7 +204,7 @@ class produto(models.Model):
 
 class itemproduto(models.Model):
     id = models.AutoField(primary_key=True)
-    produto_item = models.ForeignKey(produto)
+    produto_item = models.ForeignKey(produto, on_delete=models.CASCADE)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
     total = models.DecimalField(max_digits=5, decimal_places=2)
@@ -224,7 +224,7 @@ class itemsuco(models.Model):
         ('S', 'Sorvete'),
     )
     id = models.AutoField(primary_key=True)
-    suco_item = models.ForeignKey(suco)
+    suco_item = models.ForeignKey(suco, on_delete=models.CASCADE)
     add1 = models.CharField(max_length=1, choices=ADD, null=True, blank=True)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
