@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from pedidos.models import comanda, produto, sorvete ,itemsorvete , itemproduto, adicional, acai, itemacai, mix, itemmix, casadinho, itemcasadinho, creme, itemcreme, mshake, itemmshake, petit, itempetit, fondue, itemfondue, suco, itemsuco
 from caixa.models import caixa
