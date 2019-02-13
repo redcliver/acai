@@ -101,24 +101,29 @@ def dados(request):
         dinheiro = 0
         cartao = 0 
         entrega = 0
-        for d in caixa.objects.filter(data__range=(data_inicio,data_fim), obs='Dinheiro'):
+        local = 0
+        faturamento = 0
+        for d in caixa.objects.filter(data__range=(data_inicio,data_fim), tipo='Entrada', obs='Dinheiro'):
             d_id = d.item
             int(d_id)
             item = comanda.objects.filter(id=d_id).get()
             dinheiro = dinheiro + item.total
-        for c in caixa.objects.filter(data__range=(data_inicio,data_fim), obs='Cartao'):
+        for c in caixa.objects.filter(data__range=(data_inicio,data_fim), tipo='Entrada', obs='Cartao'):
             c_id = c.item
             int(c_id)
             item = comanda.objects.filter(id=c_id).get()
             cartao = cartao + item.total
-        for e in caixa.objects.filter(data__range=(data_inicio,data_fim)):
+        for e in caixa.objects.filter(data__range=(data_inicio,data_fim), tipo='Entrada'):
             e_id = e.item
             int(e_id)
-            cmd = comanda.objects.filter(id=e_id).get()
-            cmd1 = cmd.produtos.all()
-            for p in cmd1:
-                prod = p.produto_item.nome
+            item = comanda.objects.filter(id=e_id).get()
+            faturamento = faturamento + item.total
+            item1 = item.produtos.all()
+            for f in item1:
+                prod = f.produto_item.nome
                 if prod == 'Entrega':
                     entrega = entrega +1
-        return render(request, 'dados.html', {'title':'Dados', 'caixas':caixas, 'hoje':data1, 'caixa_atual':caixa_atual, 'dinheiro':dinheiro, 'cartao':cartao, 'entrega':entrega})    
+                else:
+                    local = local +1
+        return render(request, 'dados_periodo.html', {'title':'Dados Periodo', 'local':local, 'data_inicio':data_inicio, 'data_fim':data_fim, 'faturamento':faturamento, 'dinheiro':dinheiro, 'cartao':cartao, 'entrega':entrega})    
     return render(request, 'dados.html', {'title':'Dados', 'caixas':caixas, 'hoje':hoje, 'caixa_atual':caixa_atual, 'dinheiro':dinheiro, 'cartao':cartao, 'entrega':entrega})
