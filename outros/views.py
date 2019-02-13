@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from pedidos.models import produto , sorvete, adicional, acai, mix, casadinho, creme, mshake, petit, fondue, suco
 
@@ -17,7 +19,7 @@ def addacai(request):
         novo_acai.save()
         msg = "Açaí salvo com sucesso!"
         return render(request, 'home/home.html',{'title':'Home', 'msg':msg})
-    return render(request, 'addacai.html', {'title':'Add Açaí', 'adicionais':adicionais})
+    return render(request, 'addacai.html', {'title':'Add Acai', 'adicionais':adicionais})
 def addcasadinho(request):
     adicionais = adicional.objects.all()
     if request.method == 'POST':
