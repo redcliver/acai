@@ -1,24 +1,52 @@
 
 {% extends 'base.html' %}
 {% block body %}
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <table>
-            <tr>
-                <th>Tipo</th>
-                <th>Item</th>
-                <th>Obs</th>
-                <th>Total</th>
-            </tr>
-            {% for caixa in caixas %}
-            <tr>
-                <td>{{caixa.tipo}}</td>
-                <td>{{caixa.item}}</td>
-                <td>{{caixa.obs}}</td>
-                <td>{{caixa.total}}</td>
-            </tr>
-            {% endfor %}
-        </table>
+{% load staticfiles %}
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar menu-lateral">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link " href="/caixa">Caixa <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link active" href="#">Extrato <span class="sr-only">(current)</span></a>
+                    </li>
+            </ul>
+        </nav>
     </div>
 </div>
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3 main-fundo">
+    <section class="row text-center placeholders">
+        <div class="jumbotron busca">
+            <div class="container">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <input class="total" type="datetime" name="data" value="{{hoje}}" />
+                            <button class="fundo1" type="submit">Buscar</button>
+                        </div>
+                    </form>
+                    <div class="col-md-6 col-md-offset-3">
+                        <table class="table">
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Item</th>
+                                <th>Obs</th>
+                                <th>Total</th>
+                            </tr>
+                            {% for caixa in caixas %}
+                            <tr>
+                                <td>{{caixa.tipo}}</td>
+                                <td>{{caixa.item}}</td>
+                                <td>{{caixa.obs}}</td>
+                                <td>{{caixa.total}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}
