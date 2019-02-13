@@ -95,22 +95,23 @@ def dados(request):
         except:
             cmd = None
     if request.method == 'POST':
-        data1 = request.POST.get('data')
-        caixas = caixa.objects.filter(data__icontains=data1)
+        data_inicio = request.POST.get('data_inicio')
+        data_fim = request.POST.get('data_fim')
+        caixas = caixa.objects.filter(data__range=(data_inicio,data_fim)).all()
         dinheiro = 0
         cartao = 0 
         entrega = 0
-        for d in caixa.objects.filter(data__contains=data1, obs='Dinheiro'):
+        for d in caixa.objects.filter(data__range=(data_inicio,data_fim), obs='Dinheiro'):
             d_id = d.item
             int(d_id)
             item = comanda.objects.filter(id=d_id).get()
             dinheiro = dinheiro + item.total
-        for c in caixa.objects.filter(data__contains=data1, obs='Cartao'):
+        for c in caixa.objects.filter(data__range=(data_inicio,data_fim), obs='Cartao'):
             c_id = c.item
             int(c_id)
             item = comanda.objects.filter(id=c_id).get()
             cartao = cartao + item.total
-        for e in caixa.objects.filter(data__contains=data1):
+        for e in caixa.objects.filter(data__range=(data_inicio,data_fim)):
             e_id = e.item
             int(e_id)
             cmd = comanda.objects.filter(id=e_id).get()

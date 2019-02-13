@@ -19,6 +19,22 @@
     <section class="row text-center placeholders">
         <div class="jumbotron busca">
             <div class="container">
+                    <h1>Dados</h1><hr />
+                        <form method="POST">
+                        {%csrf_token%}
+                        <div class="form-row">
+                            <div class="form-group col-md-6"></div>
+                            <div class="form-group col-md-3">
+                                <label>Data Inicio</label>
+                                <input type="date" class="form-control" value="{{data_inicio}}" name="data_inicio" title="Selecione a data"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Data Fim</label>
+                                <input type="date" class="form-control" value="{{data_fim}}" name="data_fim" title="Selecione a data"/>
+                                <button type="submit" class="btn btn-secondary float-right" title="Buscar por data">Buscar</button>
+                            </div>
+                        </div>
+                        </form>
                 <h2>Valor em caixa: R${{caixa_atual.total}}</h2>
                 <hr />
                 <h4>Total em dinheiro: R${{dinheiro}}</h4>
