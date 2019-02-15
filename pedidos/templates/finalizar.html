@@ -27,6 +27,7 @@
                             <th>Tamanho</th>
                             <th>Adicionais</th>
                             <th>Total</th>
+                            <th>Opções</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,8 +38,13 @@
                                 <input type="hidden" name="item_acai_id" value="{{acais}}" />
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{acais.acai_item.img}}.png" /></button></td>
                                 <td><button class="no-click fundo1" ><img src="../../static/img/{{acais.acai_item.tamanho}}.png" /></button></td>
-                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                                <td>
+                                    {% for adicional in acais.adicionais.all %}
+                                        {{adicional.nome}}<br />
+                                    {% endfor %}
+                                </td>
                                 <td><h2>R$ {{acais.total}}</h2></td>
+                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/"><img src="../../static/img/adc.png" /></button><button type="submit" class="style fundo1" formaction="#"><img src="../../static/img/exc.png" /></button></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -50,8 +56,13 @@
                                 <input type="hidden" name="item_casadinho_id" value="{{casadinhos}}" />
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{casadinhos.casadinho_item.img}}.png" /></button></td>
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{casadinhos.casadinho_item.tamanho}}.png" /></button></td>
-                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                                <td>
+                                    {% for adicional in casadinhos.adicionais.all %}
+                                        {{adicional.nome}}<br />
+                                    {% endfor %}
+                                </td>
                                 <td><h2>R$ {{casadinhos.total}}</h2></td>
+                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/"><img src="../../static/img/adc.png" /></button><button type="submit" class="style fundo1" formaction="#"><img src="../../static/img/exc.png" /></button></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -63,8 +74,13 @@
                                 <input type="hidden" name="item_mix_id" value="{{mixs}}" />
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{mixs.mix_item.img}}.png" /></button></td>
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{mixs.mix_item.tamanho}}.png" /></button></td>
-                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                                <td>
+                                    {% for adicional in mixs.adicionais.all %}
+                                        {{adicional.nome}}<br />
+                                    {% endfor %}
+                                </td>
                                 <td><h2>R$ {{mixs.total}}</h2></td>
+                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/"><img src="../../static/img/adc.png" /></button><button type="submit" class="style fundo1" formaction="#"><img src="../../static/img/exc.png" /></button></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -76,8 +92,13 @@
                                 <input type="hidden" name="item_creme_id" value="{{cremes}}" />
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{cremes.creme_item.img}}.png" /></button></td>
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{cremes.creme_item.tamanho}}.png" /></button></td>
-                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                                <td>
+                                    {% for adicional in cremes.adicionais.all %}
+                                        {{adicional.nome}}<br />
+                                    {% endfor %}
+                                </td>                                
                                 <td><h2>R$ {{cremes.total}}</h2></td>
+                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/"><img src="../../static/img/adc.png" /></button><button type="submit" class="style fundo1" formaction="#"><img src="../../static/img/exc.png" /></button></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -91,6 +112,7 @@
                                 <td></td>
                                 <td></td>
                                 <td><h2>R$ {{produtos.total}}</h2></td>
+                                <td><button type="submit" class="style fundo1" formaction="#"><img src="../../static/img/exc.png" /></button></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -102,8 +124,13 @@
                                 <input type="hidden" name="item_sorvete_id" value="{{sorvetes}}" />
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{sorvetes.sorvete_item.img}}.png" /></button></td>
                                 <td></td>
-                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                                <td>
+                                    {% for adicional in sorvetes.adicionais.all %}
+                                        {{adicional.nome}}<br />
+                                    {% endfor %}
+                                </td>
                                 <td><h2>R$ {{sorvetes.total}}</h2></td>
+                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/"><img src="../../static/img/adc.png" /></button><button type="submit" class="style fundo1" formaction="#"><img src="../../static/img/exc.png" /></button></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -115,8 +142,13 @@
                                 <input type="hidden" name="item_mshake_id" value="{{mshakes.id}}" />
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{mshakes.mshake_item.img}}.png" /></button></td>
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{mshakes.mshake_item.tamanho}}.png" /></button></td>
-                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                                <td>
+                                    {% for adicional in mshakes.adicionais.all %}
+                                        {{adicional.nome}}<br />
+                                    {% endfor %}
+                                </td>
                                 <td><h2>R$ {{mshakes.total}}</h2></td>
+                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/"><img src="../../static/img/adc.png" /></button><button type="submit" class="style fundo1" formaction="#"><img src="../../static/img/exc.png" /></button></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -128,7 +160,11 @@
                                 <input type="hidden" name="item_petit_id" value="{{petits.id}}" />
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{petits.petit_item.img}}.png" /></button></td>
                                 <td></td>
-                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                                <td>
+                                    {% for adicional in petits.adicionais.all %}
+                                        {{adicional.nome}}<br />
+                                    {% endfor %}
+                                </td>                                
                                 <td><h2>R$ {{petits.total}}</h2></td>
                             </form>
                         </tr>
@@ -141,8 +177,13 @@
                                 <input type="hidden" name="item_fondue_id" value="{{fondues.id}}" />
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{fondues.fondue_item.img}}.png" /></button></td>
                                 <td></td>
-                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                                <td>
+                                    {% for adicional in fondues.adicionais.all %}
+                                        {{adicional.nome}}<br />
+                                    {% endfor %}
+                                </td>                                
                                 <td><h2>R$ {{fondues.total}}</h2></td>
+                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/"><img src="../../static/img/adc.png" /></button><button type="submit" class="style fundo1" formaction="#"><img src="../../static/img/exc.png" /></button></td>
                             </form>
                         </tr>
                         {% endfor %}
@@ -154,8 +195,13 @@
                                 <input type="hidden" name="item_suco_id" value="{{sucos.id}}" />
                                 <td><button class="no-click fundo1"><img src="../../static/img/{{sucos.suco_item.img}}.png" /></button></td>
                                 <td></td>
-                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/">Adicionar</button></td>
+                                <td>
+                                    {% for adicional in sucos.adicionais.all %}
+                                        {{adicional.nome}}<br />
+                                    {% endfor %}
+                                </td>                                    
                                 <td><h2>R$ {{sucos.total}}</h2></td>
+                                <td><button type="submit" class="style fundo1" formaction="/pedidos/adicionais/"><img src="../../static/img/adc.png" /></button><button type="submit" class="style fundo1" formaction="#"><img src="../../static/img/exc.png" /></button></td>
                             </form>
                         </tr>
                         {% endfor %}
