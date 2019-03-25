@@ -1,4 +1,5 @@
 from django.db import models
+from cliente.models import cliente
 
 # Create your models here.
 class adicional(models.Model):
@@ -233,7 +234,14 @@ class itemsuco(models.Model):
         return str(self.id)
 
 class comanda(models.Model):
+    TP = (
+        ('1', 'Local'),
+        ('2', 'Viagem'),
+        ('3', 'Entrega'),
+    )
     id = models.AutoField(primary_key=True)
+    tipo = models.CharField(max_length=1, choices=TP, default=1)
+    cli = models.ForeignKey(cliente, null=True, blank=True)
     acais = models.ManyToManyField(itemacai)
     mixs = models.ManyToManyField(itemmix)
     casadinhos = models.ManyToManyField(itemcasadinho)
@@ -244,7 +252,7 @@ class comanda(models.Model):
     fondues = models.ManyToManyField(itemfondue)
     produtos = models.ManyToManyField(itemproduto)
     sucos = models.ManyToManyField(itemsuco)
-    total = models.DecimalField(max_digits=5, decimal_places=2, default='0')
+    total = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     
     def __str__(self):
         return str(self.id)

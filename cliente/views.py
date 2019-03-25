@@ -15,12 +15,13 @@ def novo_cliente(request):
         novo_cliente = cliente(nome=nome, telefone1=telefone1, telefone2=telefone2, cpf=cpf, endereco=endereco, numero=numero, bairro=bairro, referencia=referencia)
         novo_cliente.save()
         msg = nome + " salvo(a) com sucesso."
-        return render(request, 'cliente/novo_cliente.html', {'title':'Novo Cliente', 'msg':msg})
+        clientes = cliente.objects.all().order_by('nome')
+        return render(request, 'pedidos/novo_pedido.html', {'title':'Novo Pedido', 'msg':msg, 'clientes':clientes})
 
     return render(request, 'cliente/novo_cliente.html', {'title':'Novo Cliente'})
 
 def edita_cliente(request):
-    clientes = cliente.objects.filter(estado=1).all().order_by('nome')
+    clientes = cliente.objects.all().order_by('nome')
     if request.method == 'POST' and request.POST.get('cliente_id') != None:
         cliente_id = request.POST.get('cliente_id')
         cliente_obj = cliente.objects.get(id=cliente_id)
@@ -37,6 +38,7 @@ def salva_cliente(request):
         numero = request.POST.get('numero')
         bairro = request.POST.get('bairro')
         referencia = request.POST.get('referencia')
+        estado = request.POST.get('estado')
         cliente_id = request.POST.get('cliente_id')
         cliente_obj = cliente.objects.get(id=cliente_id)
         cliente_obj.nome = nome
@@ -47,6 +49,7 @@ def salva_cliente(request):
         cliente_obj.numero = numero
         cliente_obj.bairro = bairro
         cliente_obj.referencia = referencia
+        cliente_obj.estado = estado
         cliente_obj.save()
         msg = nome + " editado(a) com sucesso."
         return render(request, 'cliente/visualiza_cliente.html', {'title':'Edita Cliente', 'cliente_obj':cliente_obj, 'msg':msg})

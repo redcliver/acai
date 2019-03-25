@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^outros/', include('outros.urls')),
     url(r'^pedidos/', include('pedidos.urls')),
     url(r'^cliente/', include('cliente.urls')),
+    url(r'^estoque/', include('estoque.urls')),
     url(r'^contact$', app.views.contact, name='contact'),
     url(r'^about', app.views.about, name='about'),
     url(r'^login/$',

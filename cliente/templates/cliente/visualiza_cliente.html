@@ -43,6 +43,40 @@
                 <label for="inputEmail">Ponto de Referência</label>
                 <textarea class="form-control" name="referencia" id="exampleFormControlTextarea1" rows="2">{{cliente_obj.referencia}}</textarea>            
             </div>
+            {% if cliente_obj.estado == '1' %}
+                <div class="form-group col-md-3">
+                    <label for="inputName">Estado</label>
+                    <div class="form-check">
+                        <input class="form-check-input" name="estado" value="1" type="radio" id="exampleRadios1" checked >
+                        <label class="form-check-label" for="exampleRadios1">
+                        Ativo
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="estado" value="2" type="radio" id="exampleRadios2" >
+                        <label class="form-check-label" for="exampleRadios2">
+                        Inativo
+                        </label>
+                    </div>
+                </div>
+            {% endif %}
+            {% if cliente_obj.estado == '2' %}
+                <div class="form-group col-md-3">
+                    <label for="inputName">Estado</label>
+                    <div class="form-check">
+                        <input class="form-check-input" name="estado" value="1" type="radio" id="exampleRadios1"  >
+                        <label class="form-check-label" for="exampleRadios1">
+                        Ativo
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="estado" value="2" type="radio" id="exampleRadios2" checked>
+                        <label class="form-check-label" for="exampleRadios2">
+                        Inativo
+                        </label>
+                    </div>
+                </div>
+            {% endif %}
         </div>
         <br />
         <button type="submit" class="btn btn-secondary float-left" formaction="/cliente/exclui_cliente/">Excluir</button>

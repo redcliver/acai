@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% block body %}
 {% load staticfiles %}
+{% if msg %}
+    <h2 style="text-align:center;">{{msg}}</h2><hr />
+{%endif%}
 <main>
-    <form method="GET">
-        <input type="hidden" name="comanda_id" value="{{comanda_id}}" />
+    <form method="POST" action="/pedidos/">
+        {% csrf_token %}
+        <input type="hidden" name="comanda_id" value="{{comanda_obj.id}}" />
         <button class="fundo1" type="submit" name="pedido" value="acai"><img src="../../static/img/acai.png" /></button>
         <button class="fundo1" type="submit" name="pedido" value="casadinho"><img src="../../static/img/casadinho1.png" /></button>
         <button class="fundo1" type="submit" name="pedido" value="mix"><img src="../../static/img/acaimix.png" /></button>
