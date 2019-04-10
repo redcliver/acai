@@ -1,4 +1,7 @@
 from django.db import models
+from cliente.models import cliente
+
+from django.utils import timezone
 
 # Create your models here.
 class adicional(models.Model):
@@ -25,8 +28,14 @@ class acai(models.Model):
         return self.nome
 
 class itemacai(models.Model):
+    ACOMP = (
+        ('N', 'Nada'),
+        ('M', 'Mel'),
+        ('L', 'Leite Condensado'),
+    )
     id = models.AutoField(primary_key=True)
     acai_item = models.ForeignKey(acai, on_delete=models.CASCADE)
+    acompanhamento = models.CharField(max_length=1, choices=ACOMP, default="N")
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
@@ -49,8 +58,14 @@ class mix(models.Model):
         return self.nome
 
 class itemmix(models.Model):
+    ACOMP = (
+        ('N', 'Nada'),
+        ('M', 'Mel'),
+        ('L', 'Leite Condensado'),
+    )
     id = models.AutoField(primary_key=True)
-    mix_item = models.ForeignKey(mix, on_delete=models.CASCADE)
+    mix_item = models.ForeignKey(mix, on_delete=models.CASCADE)    
+    acompanhamento = models.CharField(max_length=1, choices=ACOMP, default="N")
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
@@ -74,12 +89,13 @@ class casadinho(models.Model):
 
 class itemcasadinho(models.Model):
     ACOMP = (
+        ('N', 'Nada'),
         ('M', 'Mel'),
         ('L', 'Leite Condensado'),
     )
     id = models.AutoField(primary_key=True)
     casadinho_item = models.ForeignKey(casadinho, on_delete=models.CASCADE)
-    acompanhamento = models.CharField(max_length=1, choices=ACOMP)
+    acompanhamento = models.CharField(max_length=1, choices=ACOMP, default="N")
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
@@ -103,12 +119,13 @@ class creme(models.Model):
 
 class itemcreme(models.Model):
     ACOMP = (
+        ('N', 'Nada'),
         ('M', 'Mel'),
         ('L', 'Leite Condensado'),
     )
     id = models.AutoField(primary_key=True)
     creme_item = models.ForeignKey(creme, on_delete=models.CASCADE)
-    acompanhamento = models.CharField(max_length=1, choices=ACOMP)
+    acompanhamento = models.CharField(max_length=1, choices=ACOMP, default="N")
     adicionais = models.ManyToManyField(adicional)
     obs = models.CharField(max_length=200, null=True, blank=True)
     qnt = models.IntegerField(default=1)
@@ -233,7 +250,22 @@ class itemsuco(models.Model):
         return str(self.id)
 
 class comanda(models.Model):
+    TP = (
+        ('1', 'Local'),
+        ('2', 'Viagem'),
+        ('3', 'Entrega'),
+        ('4', 'Comanada sem registro'),
+    )
+    PG = (
+        ('1', 'Dinheiro'),
+        ('2', 'Cartao Debito'),
+        ('3', 'Cartao Credito'),
+        ('4', 'Comanada sem registro'),
+    )
     id = models.AutoField(primary_key=True)
+    tipo = models.CharField(max_length=1, choices=TP, default=4)
+    pagamento = models.CharField(max_length=1, choices=PG, default=4)
+    cli = models.ForeignKey(cliente, null=True, blank=True)
     acais = models.ManyToManyField(itemacai)
     mixs = models.ManyToManyField(itemmix)
     casadinhos = models.ManyToManyField(itemcasadinho)
@@ -244,7 +276,8 @@ class comanda(models.Model):
     fondues = models.ManyToManyField(itemfondue)
     produtos = models.ManyToManyField(itemproduto)
     sucos = models.ManyToManyField(itemsuco)
-    total = models.DecimalField(max_digits=5, decimal_places=2, default='0')
+    total = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    data = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return str(self.id)

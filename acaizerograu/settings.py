@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'outros',
     'pedidos',
     'cliente',
+    'estoque',
+    'contas',
     # Add your apps here to enable them
     'django.contrib.admin',
     'django.contrib.auth',
@@ -91,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sorveteria',
         'USER': 'postgres',
-        'PASSWORD': '123456', #123456
+        'PASSWORD': 'igor3355', #123456
         'HOST': '127.0.0.1',
         'PORT': '', # 8000 is default
     }
