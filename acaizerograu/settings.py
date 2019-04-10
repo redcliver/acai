@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'pedidos',
     'cliente',
     'estoque',
+    'contas',
     # Add your apps here to enable them
     'django.contrib.admin',
     'django.contrib.auth',

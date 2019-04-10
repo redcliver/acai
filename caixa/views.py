@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from caixa.models import caixa_geral
 from pedidos.models import comanda, itemproduto
-import datetime
 from decimal import *
 from django.utils import timezone
+import datetime
+from datetime import datetime
+from datetime import timedelta, date
 
 # Create your views here.
 def caixa1(request):
@@ -12,31 +14,96 @@ def caixa1(request):
 
 
 def extrato(request):
-    hoje = datetime.date.today().strftime('%Y-%m-%d')
-    caixas = caixa.objects.filter(data__contains=hoje)
+    hoje = datetime.now().strftime('%Y-%m-%d')
+    caixas = caixa_geral.objects.filter(data__date=hoje).all()
+    dinheiro = 0
+    cartao = 0
+    saida = 0 
+    total_geral = 0
+    for a in caixa_geral.objects.filter(data__date=hoje).filter(tipo=1, operacao=1).all():
+        dinheiro = dinheiro + a.valor_operacao
+    for b in caixa_geral.objects.filter(data__date=hoje).filter(tipo=2, operacao=1).all():
+        cartao = cartao + b.valor_operacao
+    for c in caixa_geral.objects.filter(data__date=hoje).filter(tipo=3, operacao=1).all():
+        cartao = cartao + c.valor_operacao
+    for d in caixa_geral.objects.filter(data__date=hoje).filter(operacao=2).all():
+        saida = saida + d.valor_operacao
+    total_geral = cartao + dinheiro
     if request.method == 'POST':
         data1 = request.POST.get('data')
-        caixas = caixa_geral.objects.filter(data__icontains=data1)
-        return render(request, 'extrato.html', {'title':'Extrato', 'caixas':caixas, 'hoje':data1})    
-    return render(request, 'extrato.html', {'title':'Extrato', 'caixas':caixas, 'hoje':hoje})
+        caixas = caixa_geral.objects.filter(data__date=data1)
+        dinheiro = 0
+        cartao = 0
+        saida = 0 
+        total_geral = 0
+        for a in caixa_geral.objects.filter(data__date=data1).filter(tipo=1, operacao=1).all():
+            dinheiro = dinheiro + a.valor_operacao
+        for b in caixa_geral.objects.filter(data__date=data1).filter(tipo=2, operacao=1).all():
+            cartao = cartao + b.valor_operacao
+        for c in caixa_geral.objects.filter(data__date=data1).filter(tipo=3, operacao=1).all():
+            cartao = cartao + c.valor_operacao
+        for d in caixa_geral.objects.filter(data__date=hoje).filter(operacao=2).all():
+            saida = saida + d.valor_operacao
+        total_geral = cartao + dinheiro
+        return render(request, 'extrato.html', {'title':'Extrato', 'caixas':caixas, 'data':data1, 'total_geral':total_geral, 'dinheiro':dinheiro, 'cartao':cartao, 'saida':saida})    
+    return render(request, 'extrato.html', {'title':'Extrato', 'caixas':caixas, 'data':hoje, 'total_geral':total_geral, 'dinheiro':dinheiro, 'cartao':cartao, 'saida':saida})
+
+def extrato_periodo(request):
+    data_inicio = datetime.now() + timezone.timedelta(days=-7)
+    data_inicio = data_inicio.strftime('%Y-%m-%d')
+    data_fim = datetime.now() + timezone.timedelta(days=1)
+    data_fim = data_fim.strftime('%Y-%m-%d')
+    caixas = caixa_geral.objects.filter(data__range=(data_inicio,data_fim)).all()
+    dinheiro = 0
+    cartao = 0
+    saida = 0 
+    total_geral = 0
+    for a in caixa_geral.objects.filter(data__range=(data_inicio,data_fim)).filter(tipo=1, operacao=1).all():
+        dinheiro = dinheiro + a.valor_operacao
+    for b in caixa_geral.objects.filter(data__range=(data_inicio,data_fim)).filter(tipo=2, operacao=1).all():
+        cartao = cartao + b.valor_operacao
+    for c in caixa_geral.objects.filter(data__range=(data_inicio,data_fim)).filter(tipo=3, operacao=1).all():
+        cartao = cartao + c.valor_operacao
+    for d in caixa_geral.objects.filter(data__range=(data_inicio,data_fim)).filter(operacao=2).all():
+        saida = saida + d.valor_operacao
+    total_geral = cartao + dinheiro
+    if request.method == 'POST':
+        data_inicio = request.POST.get('data_inicio')
+        data_fim = request.POST.get('data_fim')
+        caixas = caixa_geral.objects.filter(data__range=(data_inicio,data_fim))
+        dinheiro = 0
+        cartao = 0
+        saida = 0 
+        total_geral = 0
+        for a in caixa_geral.objects.filter(data__range=(data_inicio,data_fim)).filter(tipo=1, operacao=1).all():
+            dinheiro = dinheiro + a.valor_operacao
+        for b in caixa_geral.objects.filter(data__range=(data_inicio,data_fim)).filter(tipo=2, operacao=1).all():
+            cartao = cartao + b.valor_operacao
+        for c in caixa_geral.objects.filter(data__range=(data_inicio,data_fim)).filter(tipo=3, operacao=1).all():
+            cartao = cartao + c.valor_operacao
+        for d in caixa_geral.objects.filter(data__range=(data_inicio,data_fim)).filter(operacao=2).all():
+            saida = saida + d.valor_operacao
+        total_geral = cartao + dinheiro
+        return render(request, 'extrato_periodo.html', {'title':'Extrato', 'caixas':caixas, 'data_inicio':data_inicio, 'data_fim':data_fim, 'total_geral':total_geral, 'dinheiro':dinheiro, 'cartao':cartao, 'saida':saida})    
+    return render(request, 'extrato_periodo.html', {'title':'Extrato', 'caixas':caixas, 'data_inicio':data_inicio, 'data_fim':data_fim, 'total_geral':total_geral, 'dinheiro':dinheiro, 'cartao':cartao, 'saida':saida})
 
 def retirada(request):
-    caixa_atual = caixa.objects.latest('id')
+    caixa_atual = caixa_geral.objects.latest('id')
     if request.method == 'POST' and request.POST.get('retirada') != None:
         nova_retirada = request.POST.get('retirada')
         motivo = request.POST.get('motivo')
         caixa_atual = caixa_geral.objects.latest('id')
-        retirada_caixa = caixa_atual.total - Decimal(nova_retirada)
-        retirada_item = "Retirada no valor de : "+ str(nova_retirada)
-        novo_caixa = caixa_geral(tipo="Saida", total=retirada_caixa, item=retirada_item, obs=motivo)
+        total_caixa = caixa_atual.total - Decimal(nova_retirada)
+        valor_op = Decimal(nova_retirada)
+        novo_caixa = caixa_geral(operacao=2, tipo=1, valor_operacao=valor_op, descricao=motivo,id_operacao=caixa_atual.id, total=total_caixa)
         novo_caixa.save()
-        caixa_atual = caixa.objects.latest('id')
+        caixa_atual = caixa_geral.objects.latest('id')
         msg = "Retirada realizada com sucesso!"
         return render(request, 'home/home.html', {'title':'Home', 'msg':msg})
     return render(request, 'retirada.html', {'title':'Retirada', 'caixa_atual':caixa_atual})
 
 def entrada(request):
-    caixa_atual = caixa.objects.latest('id')
+    caixa_atual = caixa_geral.objects.latest('id')
     if request.method == 'POST' and request.POST.get('entrada') != None:
         nova_entrada = request.POST.get('entrada')
         motivo = request.POST.get('motivo')

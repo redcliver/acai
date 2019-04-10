@@ -9,6 +9,7 @@
                 <tr>
                     <th>Pedido</th>
                     <th>Tamanho</th>
+                    <th>Acomp.</th>
                     <th>Adicionais</th>
                     <th>Total</th>
                     <th>Opções</th>
@@ -24,7 +25,8 @@
                                     src="../../static/img/{{acais.acai_item.img}}.png" /></button></td>
                         <td width="15%"><button class="no-click fundo1"><img
                                     src="../../static/img/{{acais.acai_item.tamanho}}.png" /></button></td>
-                        <td width="40%">
+                        <td width="15%">{{acais.get_acompanhamento_display}}</td>
+                        <td width="25%">
                             {% for adicional in acais.adicionais.all %}
                             {{adicional.nome}},
                             {% endfor %}
@@ -49,7 +51,8 @@
                                     src="../../static/img/{{casadinhos.casadinho_item.img}}.png" /></button></td>
                         <td width="15%"><button class="no-click fundo1"><img
                                     src="../../static/img/{{casadinhos.casadinho_item.tamanho}}.png" /></button></td>
-                        <td width="40%">
+                        <td width="15%">{{casadinhos.get_acompanhamento_display}}</td>
+                        <td width="25%">
                             {% for adicional in casadinhos.adicionais.all %}
                             {{adicional.nome}}<br />
                             {% endfor %}
@@ -74,7 +77,8 @@
                                     src="../../static/img/{{mixs.mix_item.img}}.png" /></button></td>
                         <td width="15%"><button class="no-click fundo1"><img
                                     src="../../static/img/{{mixs.mix_item.tamanho}}.png" /></button></td>
-                        <td width="40%">
+                        <td width="15%">{{mixs.get_acompanhamento_display}}</td>
+                        <td width="25%">
                             {% for adicional in mixs.adicionais.all %}
                             {{adicional.nome}}<br />
                             {% endfor %}
@@ -99,7 +103,8 @@
                                     src="../../static/img/{{cremes.creme_item.img}}.png" /></button></td>
                         <td width="15%"><button class="no-click fundo1"><img
                                     src="../../static/img/{{cremes.creme_item.tamanho}}.png" /></button></td>
-                        <td width="40%">
+                        <td width="15%">{{cremes.get_acompanhamento_display}}</td>
+                        <td width="25%">
                             {% for adicional in cremes.adicionais.all %}
                             {{adicional.nome}}<br />
                             {% endfor %}
@@ -123,7 +128,8 @@
                         <td width="15%"><button class="no-click fundo1"><img
                                     src="../../static/img/{{sorvetes.sorvete_item.img}}.png" /></button></td>
                         <td width="15%"></td>
-                        <td width="40%">
+                        <td width="15%"></td>
+                        <td width="25%">
                             {% for adicional in sorvetes.adicionais.all %}
                             {{adicional.nome}}<br />
                             {% endfor %}
@@ -148,7 +154,8 @@
                                     src="../../static/img/{{mshakes.mshake_item.img}}.png" /></button></td>
                         <td width="15%"><button class="no-click fundo1"><img
                                     src="../../static/img/{{mshakes.mshake_item.tamanho}}.png" /></button></td>
-                        <td width="40%">
+                        <td width="15%"></td>
+                        <td width="25%">
                             {% for adicional in mshakes.adicionais.all %}
                             {{adicional.nome}}<br />
                             {% endfor %}
@@ -172,7 +179,8 @@
                         <td width="15%"><button class="no-click fundo1"><img
                                     src="../../static/img/{{petits.petit_item.img}}.png" /></button></td>
                         <td width="15%"></td>
-                        <td width="40%">
+                        <td width="15%"></td>
+                        <td width="25%">
                             {% for adicional in petits.adicionais.all %}
                             {{adicional.nome}}<br />
                             {% endfor %}
@@ -196,7 +204,8 @@
                         <td width="15%"><button class="no-click fundo1"><img
                                     src="../../static/img/{{fondues.fondue_item.img}}.png" /></button></td>
                         <td width="15%"></td>
-                        <td width="40%">
+                        <td width="15%"></td>
+                        <td width="25%">
                             {% for adicional in fondues.adicionais.all %}
                             {{adicional.nome}}<br />
                             {% endfor %}
@@ -220,7 +229,8 @@
                         <td width="15%"><button class="no-click fundo1"><img
                                     src="../../static/img/{{sucos.suco_item.img}}.png" /></button></td>
                         <td width="15%"></td>
-                        <td width="40%">
+                        <td width="15%"></td>
+                        <td width="25%">
                             {% for adicional in sucos.adicionais.all %}
                             {{adicional.nome}}<br />
                             {% endfor %}
@@ -244,7 +254,8 @@
                         <td width="15%"><button class="no-click fundo1"><img
                                     src="../../static/img/{{produtos.produto_item.img}}.png" /></button></td>
                         <td width="15%"></td>
-                        <td width="40%"></td>
+                        <td width="15%"></td>
+                        <td width="25%"></td>
                         <td width="15%">
                             <h4>R$ {{produtos.total}}</h4>
                         </td>
@@ -265,7 +276,8 @@
         <div class="float-right">
             <button formaction="/pedidos/" formmethod="POST" class="style1 fundo3">Adicionar outro item</button>&nbsp;
             <button formaction="/pedidos/dinheiro/" class="style1 fundo3">Dinheiro</button>&nbsp;
-            <button formaction="/pedidos/cartao/" class="style1 fundo3">Cartão</button>&nbsp;
+            <button formaction="/pedidos/cartao_credito/" class="style1 fundo3">Cartão Crédito</button>&nbsp;
+            <button formaction="/pedidos/cartao_debito/" class="style1 fundo3">Cartão Débito</button>&nbsp;
         </div>
     </form>
 </main>

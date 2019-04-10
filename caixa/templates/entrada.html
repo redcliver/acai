@@ -8,21 +8,43 @@
 <h1>Entrada</h1><hr />
     <form method="POST">
     {%csrf_token%}
-        <h3 for="inputName"><b>Total de Dinheiro em Caixa: R$ {{caixa_atual.total}}</b></h3><hr />
         <div class="form-row">
-                <div class="form-group col-md-9">
-                    <label for="inputName">Descrição </label>
-                    <input type="text" class="form-control" id="inputEmail4" name="motivo" maxlength="200" required autofocus title="Digite a descrição da entrada.">
+            <div class="form-group col-md-12">
+                <h4>Total em dinheiro : R$ {{caixa_atual.total}}</h4>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="inputName">Motivo</label>
+                <input type="text" class="form-control" id="inputEmail4" name="motivo" maxlength="200" required autofocus>
+            </div>  
+            <div class="form-group col-md-4">
+                <label for="inputTel">Valor</label>
+                <input type="text" class="form-control" name="entrada" maxlength="10" onkeydown="javascript: fMasc( this, mValor );" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputTel">Método</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="metodo" id="exampleRadios1" value="1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        Dinheiro
+                    </label>
                 </div>
-                <div class="form-group col-md-3">
-                    
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="metodo" id="exampleRadios2" value="2">
+                    <label class="form-check-label" for="exampleRadios2">
+                        Cartão Débito
+                    </label>
                 </div>
-                <div class="form-group col-md-3">
-                    <label for="inputCel">Valor</label>
-                    <input type="text" class="form-control" name="entrada" maxlength="10" onkeydown="javascript: fMasc( this, mValor );" required>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="metodo" id="exampleRadios2" value="3">
+                    <label class="form-check-label" for="exampleRadios2">
+                        Cartão Crédito
+                    </label>
                 </div>
             </div>
-            <br />
-            <button type="submit" class="btn btn-secondary float-right" title="Salvar registro de entrada.">Registrar</button>
+            <div class="form-group col-md-4">
+                <br>
+                <button class="btn btn-secondary float-right" type="submit">Salvar</button>
+            </div>
+        </div>
     </form>
-{% endblock %}
+    {% endblock %}
