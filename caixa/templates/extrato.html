@@ -37,6 +37,7 @@
                     <td>{{caixa_geral.id}}</td>
                     <td>{{caixa_geral.data|date:"H:i"}}</td>
                     <td>{{caixa_geral.get_operacao_display}}</td>
+                    <td>{{caixa_geral.get_tipo_display}}</td>
                     <td>{{caixa_geral.descricao}}</td>
                     <td>R$ {{caixa_geral.valor_operacao}}</td>
                     <td>R$ {{caixa_geral.total}}</td>
@@ -47,11 +48,19 @@
         </table>
     </div>
     <div class="form-row">
-        <div class="col align-self-end">
+        <div class="form-group col-md-4">
             <h5>Dinheiro: R$ {{dinheiro}}</h5>
             <h5>Cartão: R$ {{cartao}}</h5>
-            <h5>Saidas: R$ {{saida}}</h5>
-            <h5>Total: R$ {{total_geral}}</h5>
+            <h5>Saidas: R$ {{saida}}</h5><br />
+            <h4>Total: R$ {{total_geral}}</h4>
+        </div>
+        <div class="form-group col-md-4">
+        </div>
+        <div class="form-group col-md-4">
+            <h5>Entrega: {{entrega}}x</h5>
+            <h5>Viagem: {{viagem}}x</h5>
+            <h5>Local: {{local}}x</h5>
+            <h5>Total: {{total_pedido}}x</h5>
         </div>
     </div>
     </form>

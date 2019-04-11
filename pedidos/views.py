@@ -370,6 +370,20 @@ def excluir(request):
         petits1 = comanda_obj.petits.all()
         fondues1 = comanda_obj.fondues.all()
         return render(request, 'pedidos/finalizar.html',{'title':'Fechamento', 'fondues1':fondues1, 'petits1':petits1, 'mshakes1':mshakes1, 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_obj':comanda_obj})
+    if item_produto_obj != None and comanda_obj != None: ## Excluir FONDUE em comanda
+        comanda_obj.total = comanda_obj.total - item_produto_obj.total
+        item_produto_obj.delete()
+        comanda_obj.save()
+        acais1 = comanda_obj.acais.all()
+        mixs1 = comanda_obj.mixs.all()
+        casadinhos1 = comanda_obj.casadinhos.all()
+        produtos1 = comanda_obj.produtos.all()
+        cremes1 = comanda_obj.cremes.all()
+        sorvetes1 = comanda_obj.sorvetes.all()
+        mshakes1 = comanda_obj.mshakes.all()
+        petits1 = comanda_obj.petits.all()
+        fondues1 = comanda_obj.fondues.all()
+        return render(request, 'pedidos/finalizar.html',{'title':'Fechamento', 'fondues1':fondues1, 'petits1':petits1, 'mshakes1':mshakes1, 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_obj':comanda_obj})
 
 def finalizar(request):
     pedido2 = request.POST.get('pedido')
@@ -389,10 +403,10 @@ def finalizar(request):
     petit1 = request.POST.get('item_petit_id')
     fondue1 = request.POST.get('item_fondue_id')
     pedido_produto = request.POST.get('pedido_produto')
-    pedido_sorvete = request.POST.get('pedido_produto')
-    pedido_petit = request.POST.get('pedido_produto')
-    pedido_fondue = request.POST.get('pedido_produto')
-    pedido_suco = request.POST.get('pedido_produto')
+    pedido_sorvete = request.POST.get('pedido_sorvete')
+    pedido_petit = request.POST.get('pedido_petit')
+    pedido_fondue = request.POST.get('pedido_fondue')
+    pedido_suco = request.POST.get('pedido_suco')
     adicionais1 = request.POST.getlist('adicional2')
     comanda_id = request.POST.get('comanda_id')
     if adicionais1 == []:
@@ -449,27 +463,27 @@ def finalizar(request):
         comanda_obj = None
 
     try: ## pedido produto
-        pedido_produto = produto.objects.filter(img=pedido_produto).get()
+        pedido_produto = produto.objects.filter(img=pedido2).get()
     except:
         pedido_produto = None
 
     try: ## pedido petit
-        pedido_petit = petit.objects.filter(img=pedido_petit).get()
+        pedido_petit = petit.objects.filter(img=pedido2).get()
     except:
         pedido_petit = None
 
     try: ## pedido fondue
-        pedido_fondue = fondue.objects.filter(img=pedido_fondue).get()
+        pedido_fondue = fondue.objects.filter(img=pedido2).get()
     except:
         pedido_fondue = None
 
     try: ## pedido suco
-        pedido_suco = suco.objects.filter(img=pedido_suco).get()
+        pedido_suco = suco.objects.filter(img=pedido2).get()
     except:
         pedido_suco = None
 
     try: ## pedido sorvete
-        pedido_sorvete = sorvete.objects.filter(img=pedido_sorvete).get()
+        pedido_sorvete = sorvete.objects.filter(img=pedido2).get()
     except:
         pedido_sorvete = None
 
@@ -497,6 +511,7 @@ def finalizar(request):
         pedido_mshake = mshake.objects.filter(img=pedido2, tamanho=tamanho1).get()
     except:
         pedido_mshake = None
+        
 
     if pedido_acai != None and tamanho1 != None and comanda_obj != None and adicionais1 == None: ##add ACAI em comanda 
         total_pedido = pedido_acai.preco
@@ -669,7 +684,7 @@ def finalizar(request):
         fondues1 = comanda_obj.fondues.all()
         sucos1 = comanda_obj.sucos.all()
         return render(request, 'pedidos/finalizar.html', {'title':'Fechamento', 'sucos1':sucos1, 'fondues1':fondues1, 'petits1':petits1, 'mshakes1':mshakes1, 'sorvetes1':sorvetes1, 'acais1':acais1, 'mixs1':mixs1, 'casadinhos1':casadinhos1, 'cremes1':cremes1, 'produtos1':produtos1, 'comanda_obj':comanda_obj})
-    if pedido_produto != None and tamanho1 != None and comanda_obj != None and adicionais1 == None: ##add PRODUTO em comanda 
+    if pedido_produto != None and comanda_obj != None and adicionais1 == None: ##add PRODUTO em comanda 
         total_pedido = pedido_produto.preco
         novo_item = itemproduto(produto_item=pedido_produto, total=total_pedido)
         novo_item.save()
@@ -1040,9 +1055,9 @@ def dinheiro(request):
     comanda_obj.pagamento = 1
     comanda_obj.save()
     caixa_atual = caixa_geral.objects.latest('id')
-    item_caixa = str(comanda_obj.id)
     novo_total = caixa_atual.total + comanda_obj.total
-    nova_entrada = caixa_geral(total=novo_total, operacao=1, tipo=1, id_operacao=item_caixa, valor_operacao=comanda_obj.total)
+    desc = "Venda n: "+str(comanda_obj.id)+"."
+    nova_entrada = caixa_geral(operacao=1, tipo=1, id_operacao=comanda_obj.id, valor_operacao=comanda_obj.total, descricao=desc, total=novo_total)
     nova_entrada.save()
     acais1 = comanda_obj.acais.all()
     mixs1 = comanda_obj.mixs.all()
@@ -1054,7 +1069,9 @@ def dinheiro(request):
     petits1 = comanda_obj.petits.all()
     fondues1 = comanda_obj.fondues.all()
     sucos1 = comanda_obj.sucos.all()
-    """Epson = printer.Usb(0x04b8,0x0202)
+    metodo_prep = comanda_obj.get_tipo_display()
+    metodo_prep = str(metodo_prep)
+    Epson = printer.Usb(0x04b8,0x0202)
     Epson.set(align='center')
     Epson.text('\n')
     Epson.text('\n')
@@ -1062,7 +1079,8 @@ def dinheiro(request):
     Epson.text("* * * C O Z I N H A * * * \n\n")
     Epson.text('\n')
     Epson.set(bold=True)
-    Epson.text("--> "+ comanda_obj.get_tipo_display +" <-- \n\n")
+    Epson.text("--> "+ str(metodo_prep) +" <--")
+    Epson.text('\n')
     Epson.text('\n')
     Epson.set(bold=False)
     Epson.set(align='left')
@@ -1073,7 +1091,7 @@ def dinheiro(request):
         Epson.set(bold=True)
         Epson.text("Acai : " + str(acais.acai_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(acais.acompanhamento))
+        Epson.text("Acomp: " + str(acais.get_acompanhamento_display()))
         Epson.text('\n')
         Epson.text("Tamanho : " + str(acais.acai_item.tamanho))
         Epson.set(bold=False)
@@ -1096,7 +1114,7 @@ def dinheiro(request):
         Epson.set(bold=True)
         Epson.text("Mix : " + str(mixs.mix_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(mixs.acompanhamento))
+        Epson.text("Acomp: " + str(mixs.get_acompanhamento_display()))
         Epson.text('\n')
         Epson.text("Tamanho : " + str(mixs.mix_item.tamanho))
         Epson.set(bold=False)
@@ -1119,7 +1137,7 @@ def dinheiro(request):
         Epson.set(bold=True)
         Epson.text("Casadinho : " + str(casadinhos.casadinho_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(casadinhos.acompanhamento))
+        Epson.text("Acomp: " + str(casadinhos.get_acompanhamento_display()))
         Epson.text('\n')
         Epson.text("Tamanho : " + str(casadinhos.casadinho_item.tamanho))
         Epson.set(bold=False)
@@ -1152,7 +1170,7 @@ def dinheiro(request):
         Epson.set(bold=True)
         Epson.text("Creme : " + str(cremes.creme_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(cremes.acompanhamento))
+        Epson.text("Acomp: " + str(cremes.get_acompanhamento_display()))
         Epson.text('\n')
         Epson.text("Tamanho : " + str(cremos.creme_item.tamanho))
         Epson.set(bold=False)
@@ -1260,8 +1278,9 @@ def dinheiro(request):
         Epson.set(align='right')
         Epson.text('Total : R$'+str(produtos.total)+'\n')
         Epson.set(align='left')
-        Epson.text('------------------------------------------------\n')"""
-    
+    Epson.set(bold=False)
+    Epson.cut()
+
     return render(request, 'pedidos/dinheiro.html',{'title':'Pagamento em dinheiro', 'comanda_obj':comanda_obj})
 
 def cartao_debito(request):
@@ -1272,7 +1291,8 @@ def cartao_debito(request):
     caixa_atual = caixa_geral.objects.latest('id')
     item_caixa = str(comanda_obj.id)
     novo_total = caixa_atual.total + comanda_obj.total
-    nova_entrada = caixa_geral(total=novo_total, operacao=1, tipo=2, id_operacao=item_caixa, valor_operacao=comanda_obj.total)
+    desc = "Venda n: "+str(comanda_obj.id)+"."
+    nova_entrada = caixa_geral(operacao=1, tipo=2, id_operacao=comanda_obj.id, valor_operacao=comanda_obj.total, descricao=desc, total=novo_total)
     nova_entrada.save()
     acais1 = comanda_obj.acais.all()
     mixs1 = comanda_obj.mixs.all()
@@ -1284,7 +1304,9 @@ def cartao_debito(request):
     petits1 = comanda_obj.petits.all()
     fondues1 = comanda_obj.fondues.all()
     sucos1 = comanda_obj.sucos.all()
-    """Epson = printer.Usb(0x04b8,0x0202)
+    metodo_prep = comanda_obj.get_tipo_display()
+    metodo_prep = str(metodo_prep)
+    Epson = printer.Usb(0x04b8,0x0202)
     Epson.set(align='center')
     Epson.text('\n')
     Epson.text('\n')
@@ -1292,7 +1314,8 @@ def cartao_debito(request):
     Epson.text("* * * C O Z I N H A * * * \n\n")
     Epson.text('\n')
     Epson.set(bold=True)
-    Epson.text("--> "+ comanda_obj.get_tipo_display +" <-- \n\n")
+    Epson.text("--> "+ str(metodo_prep) +" <--")
+    Epson.text('\n')
     Epson.text('\n')
     Epson.set(bold=False)
     Epson.set(align='left')
@@ -1303,9 +1326,9 @@ def cartao_debito(request):
         Epson.set(bold=True)
         Epson.text("Acai : " + str(acais.acai_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(acais.acompanhamento))
+        Epson.text("Acomp: " + str(acais.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(acais.acai_item.tamanho))
+        Epson.text("Tamanho : " + str(acais.acai_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1326,9 +1349,9 @@ def cartao_debito(request):
         Epson.set(bold=True)
         Epson.text("Mix : " + str(mixs.mix_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(mixs.acompanhamento))
+        Epson.text("Acomp: " + str(mixs.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(mixs.mix_item.tamanho))
+        Epson.text("Tamanho : " + str(mixs.mix_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1349,9 +1372,9 @@ def cartao_debito(request):
         Epson.set(bold=True)
         Epson.text("Casadinho : " + str(casadinhos.casadinho_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(casadinhos.acompanhamento))
+        Epson.text("Acomp: " + str(casadinhos.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(casadinhos.casadinho_item.tamanho))
+        Epson.text("Tamanho : " + str(casadinhos.casadinho_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1382,9 +1405,9 @@ def cartao_debito(request):
         Epson.set(bold=True)
         Epson.text("Creme : " + str(cremes.creme_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(cremes.acompanhamento))
+        Epson.text("Acomp: " + str(cremes.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(cremos.creme_item.tamanho))
+        Epson.text("Tamanho : " + str(cremos.creme_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1424,7 +1447,7 @@ def cartao_debito(request):
         Epson.set(bold=True)
         Epson.text("Milk Shake : " + str(mshakes.mshake_item.nome))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(mshakes.mshake_item.tamanho))
+        Epson.text("Tamanho : " + str(mshakes.mshake_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1490,7 +1513,9 @@ def cartao_debito(request):
         Epson.set(align='right')
         Epson.text('Total : R$'+str(produtos.total)+'\n')
         Epson.set(align='left')
-        Epson.text('------------------------------------------------\n')"""
+    Epson.set(bold=False)
+    Epson.cut()
+
     return render(request, 'pedidos/troco.html',{'title':'Pagamento em cartao', 'comanda_obj':comanda_obj, 'recebido':str(comanda_obj.total), 'troco':str(0.00)})
 
 def cartao_credito(request):
@@ -1501,7 +1526,8 @@ def cartao_credito(request):
     caixa_atual = caixa_geral.objects.latest('id')
     item_caixa = str(comanda_obj.id)
     novo_total = caixa_atual.total + comanda_obj.total
-    nova_entrada = caixa_geral(total=novo_total, operacao=1, tipo=3, id_operacao=item_caixa, valor_operacao=comanda_obj.total)
+    desc = "Venda n: "+str(comanda_obj.id)+"."
+    nova_entrada = caixa_geral(operacao=1, tipo=3, id_operacao=comanda_obj.id, valor_operacao=comanda_obj.total, descricao=desc, total=novo_total)
     nova_entrada.save()
     acais1 = comanda_obj.acais.all()
     mixs1 = comanda_obj.mixs.all()
@@ -1513,15 +1539,18 @@ def cartao_credito(request):
     petits1 = comanda_obj.petits.all()
     fondues1 = comanda_obj.fondues.all()
     sucos1 = comanda_obj.sucos.all()
-    """Epson = printer.Usb(0x04b8,0x0202)
+    metodo_prep = comanda_obj.get_tipo_display()
+    metodo_prep = str(metodo_prep)
+    Epson = printer.Usb(0x04b8,0x0202)
     Epson.set(align='center')
     Epson.text('\n')
     Epson.text('\n')
     Epson.text('\n')
-    Epson.set(bold=True)
     Epson.text("* * * C O Z I N H A * * * \n\n")
     Epson.text('\n')
-    Epson.text("--> "+ comanda_obj.get_tipo_display +" <-- \n\n")
+    Epson.set(bold=True)
+    Epson.text("--> "+ str(metodo_prep) +" <--")
+    Epson.text('\n')
     Epson.text('\n')
     Epson.set(bold=False)
     Epson.set(align='left')
@@ -1532,9 +1561,9 @@ def cartao_credito(request):
         Epson.set(bold=True)
         Epson.text("Acai : " + str(acais.acai_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(acais.acompanhamento))
+        Epson.text("Acomp: " + str(acais.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(acais.acai_item.tamanho))
+        Epson.text("Tamanho : " + str(acais.acai_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1555,9 +1584,9 @@ def cartao_credito(request):
         Epson.set(bold=True)
         Epson.text("Mix : " + str(mixs.mix_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(mixs.acompanhamento))
+        Epson.text("Acomp: " + str(mixs.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(mixs.mix_item.tamanho))
+        Epson.text("Tamanho : " + str(mixs.mix_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1578,9 +1607,9 @@ def cartao_credito(request):
         Epson.set(bold=True)
         Epson.text("Casadinho : " + str(casadinhos.casadinho_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(casadinhos.acompanhamento))
+        Epson.text("Acomp: " + str(casadinhos.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(casadinhos.casadinho_item.tamanho))
+        Epson.text("Tamanho : " + str(casadinhos.casadinho_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1611,9 +1640,9 @@ def cartao_credito(request):
         Epson.set(bold=True)
         Epson.text("Creme : " + str(cremes.creme_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(cremes.acompanhamento))
+        Epson.text("Acomp: " + str(cremes.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(cremos.creme_item.tamanho))
+        Epson.text("Tamanho : " + str(cremos.creme_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1653,7 +1682,7 @@ def cartao_credito(request):
         Epson.set(bold=True)
         Epson.text("Milk Shake : " + str(mshakes.mshake_item.nome))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(mshakes.mshake_item.tamanho))
+        Epson.text("Tamanho : " + str(mshakes.mshake_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1719,7 +1748,9 @@ def cartao_credito(request):
         Epson.set(align='right')
         Epson.text('Total : R$'+str(produtos.total)+'\n')
         Epson.set(align='left')
-        Epson.text('------------------------------------------------\n')"""
+    Epson.set(bold=False)
+    Epson.cut()
+
     return render(request, 'pedidos/troco.html',{'title':'Pagamento em cartao', 'comanda_obj':comanda_obj, 'recebido':str(comanda_obj.total), 'troco':str(0.00)})
 
 def delivery(request):
@@ -1736,7 +1767,22 @@ def delivery(request):
     petits1 = comanda_obj.petits.all()
     fondues1 = comanda_obj.fondues.all()
     sucos1 = comanda_obj.sucos.all()
-    """Epson = printer.Usb(0x04b8,0x0202)
+    met_pagamento = comanda_obj.get_pagamento_display()
+    met_pagamento = str(met_pagamento)
+    tel1 = comanda_obj.cli.telefone1
+    tel1 = str(tel1)
+    tel2 = comanda_obj.cli.telefone2
+    tel2 = str(tel2)
+    end = comanda_obj.cli.endereco
+    end = str(end)
+    num= comanda_obj.cli.numero
+    num = str(num)
+    bai = comanda_obj.cli.bairro
+    bai = str(bai)
+    ref = comanda_obj.cli.referencia
+    ref = str(ref)
+
+    Epson = printer.Usb(0x04b8,0x0202)
     Epson.set(align='center')
     Epson.set(bold=True)
     Epson.text("* * * E N T R E G A * * * \n\n")
@@ -1750,9 +1796,9 @@ def delivery(request):
         Epson.set(bold=True)
         Epson.text("Acai : " + str(acais.acai_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(acais.acompanhamento))
+        Epson.text("Acomp: " + str(acais.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(acais.acai_item.tamanho))
+        Epson.text("Tamanho : " + str(acais.acai_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1773,9 +1819,9 @@ def delivery(request):
         Epson.set(bold=True)
         Epson.text("Mix : " + str(mixs.mix_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(mixs.acompanhamento))
+        Epson.text("Acomp: " + str(mixs.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(mixs.mix_item.tamanho))
+        Epson.text("Tamanho : " + str(mixs.mix_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1796,9 +1842,9 @@ def delivery(request):
         Epson.set(bold=True)
         Epson.text("Casadinho : " + str(casadinhos.casadinho_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(casadinhos.acompanhamento))
+        Epson.text("Acomp: " + str(casadinhos.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(casadinhos.casadinho_item.tamanho))
+        Epson.text("Tamanho : " + str(casadinhos.casadinho_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1829,9 +1875,9 @@ def delivery(request):
         Epson.set(bold=True)
         Epson.text("Creme : " + str(cremes.creme_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(cremes.acompanhamento))
+        Epson.text("Acomp: " + str(cremes.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(cremos.creme_item.tamanho))
+        Epson.text("Tamanho : " + str(cremos.creme_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1871,7 +1917,7 @@ def delivery(request):
         Epson.set(bold=True)
         Epson.text("Milk Shake : " + str(mshakes.mshake_item.nome))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(mshakes.mshake_item.tamanho))
+        Epson.text("Tamanho : " + str(mshakes.mshake_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -1941,26 +1987,38 @@ def delivery(request):
     Epson.text('\n')
     Epson.set(align='center')
     Epson.set(bold=True)
-    Epson.text('Metodo: '+str(comanda_obj.get_pagamento_display))
+    Epson.text('Metodo: '+str(met_pagamento))
     Epson.text('\n')
     Epson.text('Valor: R$'+str(comanda_obj.total))
     Epson.text('\n')
     Epson.text('Troco: R$'+str(troco))
     Epson.text('\n')
-    Epson.text(str(comanda_obj.cli.nome)
+    Epson.text('\n')
+    Epson.text(str(comanda_obj.cli.nome))
+    Epson.text('\n')
     Epson.set(align='left')
     Epson.text('Endereco:')
-    Epson.set(align='center')
-    Epson.text(str(comanda_obj.cli.endereco)+' ,'+str(comanda_obj.cli.numero))
-    Epson.text(str(comanda_obj.cli.bairro)
-    Epson.text(str(comanda_obj.cli.referencia)
-    Epson.set(align='left')
-    Epson.text('Telefone:')
-    Epson.set(align='center')
-    Epson.text(str(comanda_obj.cli.telefone1)
-    Epson.text(str(comanda_obj.cli.telefone2)
+    Epson.text('\n')
+    if end != '':
+        Epson.set(align='center')
+        Epson.text(str(end)+', '+str(num))
+        Epson.text('\n')
+        Epson.text(str(bai))
+    if ref != '':
+        Epson.text('\n')
+        Epson.text(str(ref))
+    if tel1 != '' or tel2 != '':
+        Epson.set(align='left')
+        Epson.text('\n')
+        Epson.text('Telefone:')
+        Epson.text('\n')
+        Epson.set(align='center')
+        if tel1 != '':
+            Epson.text(str(tel1))
+        if tel2 != '':
+            Epson.text(str(tel2))
     Epson.set(bold=False)
-    """
+    Epson.cut()
     msg = "Pedido finalizado com sucesso!"
     return render(request, 'home/home.html', {'title':'Home','msg':msg})
 
@@ -1980,14 +2038,16 @@ def via_cliente(request):
     sucos1 = comanda_obj.sucos.all()
     data = comanda_obj.data
     data = data.strftime("%d/%m/%Y - %H:%M")
-    """Epson = printer.Usb(0x04b8,0x0202)
+    Epson = printer.Usb(0x04b8,0x0202)
     Epson.set(align='center')
     Epson.set(bold=True)
     Epson.text("* * * V I A - C L I E N T E * * * \n\n")
     Epson.set(bold=False)
     Epson.text('\n')
     Epson.set(align='left')
+    Epson.text('\n')
     Epson.text("Comanda N: " + str(comanda_obj.id))
+    Epson.text('\n')
     Epson.text("Data: " + str(data))
     Epson.text('\n')
     Epson.text('------------------------------------------------\n')
@@ -1995,9 +2055,9 @@ def via_cliente(request):
         Epson.set(bold=True)
         Epson.text("Acai : " + str(acais.acai_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(acais.acompanhamento))
+        Epson.text("Acomp: " + str(acais.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(acais.acai_item.tamanho))
+        Epson.text("Tamanho : " + str(acais.acai_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -2018,9 +2078,9 @@ def via_cliente(request):
         Epson.set(bold=True)
         Epson.text("Mix : " + str(mixs.mix_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(mixs.acompanhamento))
+        Epson.text("Acomp: " + str(mixs.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(mixs.mix_item.tamanho))
+        Epson.text("Tamanho : " + str(mixs.mix_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -2041,9 +2101,9 @@ def via_cliente(request):
         Epson.set(bold=True)
         Epson.text("Casadinho : " + str(casadinhos.casadinho_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(casadinhos.acompanhamento))
+        Epson.text("Acomp: " + str(casadinhos.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(casadinhos.casadinho_item.tamanho))
+        Epson.text("Tamanho : " + str(casadinhos.casadinho_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -2074,9 +2134,9 @@ def via_cliente(request):
         Epson.set(bold=True)
         Epson.text("Creme : " + str(cremes.creme_item.nome))
         Epson.text('\n')
-        Epson.text("Acomp: " + str(cremes.acompanhamento))
+        Epson.text("Acomp: " + str(cremes.get_acompanhamento_display()))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(cremos.creme_item.tamanho))
+        Epson.text("Tamanho : " + str(cremos.creme_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -2116,7 +2176,7 @@ def via_cliente(request):
         Epson.set(bold=True)
         Epson.text("Milk Shake : " + str(mshakes.mshake_item.nome))
         Epson.text('\n')
-        Epson.text("Tamanho : " + str(mshakes.mshake_item.tamanho))
+        Epson.text("Tamanho : " + str(mshakes.mshake_item.get_tamanho_display()))
         Epson.set(bold=False)
         Epson.text('\n')
         Epson.text('\n')
@@ -2186,12 +2246,14 @@ def via_cliente(request):
     Epson.text('\n')
     Epson.set(align='center')
     Epson.set(bold=True)
-    Epson.text('Metodo: '+str(comanda_obj.get_pagamento_display))
+    Epson.text('Metodo: '+str(comanda_obj.get_pagamento_display()))
     Epson.text('\n')
     Epson.text('Valor: R$'+str(comanda_obj.total))
     Epson.text('\n')
     Epson.text('Troco: R$'+str(troco))
-    """
+    Epson.text('\n')
+    Epson.cut()
+    
     msg = "Pedido finalizado com sucesso!"
     return render(request, 'home/home.html', {'title':'Home','msg':msg})
 
