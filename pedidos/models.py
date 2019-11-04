@@ -265,7 +265,7 @@ class comanda(models.Model):
     id = models.AutoField(primary_key=True)
     tipo = models.CharField(max_length=1, choices=TP, default=4)
     pagamento = models.CharField(max_length=1, choices=PG, default=4)
-    cli = models.ForeignKey(cliente, null=True, blank=True)
+    cli = models.ForeignKey(cliente, null=True, blank=True, on_delete=models.CASCADE)
     acais = models.ManyToManyField(itemacai)
     mixs = models.ManyToManyField(itemmix)
     casadinhos = models.ManyToManyField(itemcasadinho)
