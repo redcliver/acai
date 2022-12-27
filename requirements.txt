@@ -7,7 +7,7 @@ pip==18.1
 pipenv==2018.7.1
 psycopg2==2.7.5
 pytz==2018.5
-setuptools==39.0.1
+setuptools==65.5.1
 virtualenv==16.0.0
 virtualenv-clone==0.3.0
 whitenoise==3.3.1
